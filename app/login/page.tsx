@@ -65,7 +65,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-canvas px-5 py-12 md:px-0">
-      <div className="w-full max-w-sm">
+      <div className="animate-fade-up w-full max-w-sm">
         {/* Logo */}
         <div className="flex justify-center">
           <Logo className="h-8 w-auto text-ink-primary" />
@@ -82,7 +82,7 @@ export default function LoginPage() {
           <div className="flex flex-col gap-1.5">
             <label
               htmlFor="email"
-              className="font-inter text-caption uppercase tracking-widest text-ink-secondary"
+              className="font-inter text-caption uppercase text-ink-secondary"
             >
               Email
             </label>
@@ -102,7 +102,7 @@ export default function LoginPage() {
           <div className="flex flex-col gap-1.5">
             <label
               htmlFor="password"
-              className="font-inter text-caption uppercase tracking-widest text-ink-secondary"
+              className="font-inter text-caption uppercase text-ink-secondary"
             >
               Password
             </label>
@@ -114,13 +114,13 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-12 w-full rounded-input border border-border-hairline bg-surface px-3 pr-10 font-inter text-body text-ink-primary placeholder:text-ink-tertiary focus:border-ink-secondary focus:outline-none focus:ring-0 md:h-10"
+                className="h-12 w-full rounded-input border border-border-hairline bg-surface px-3 pr-12 font-inter text-body text-ink-primary placeholder:text-ink-tertiary focus:border-ink-secondary focus:outline-none focus:ring-0 md:h-10"
                 placeholder="••••••••"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 font-inter text-caption text-ink-tertiary hover:text-ink-secondary"
+                className="absolute right-1 top-1/2 -translate-y-1/2 flex min-h-[44px] min-w-[44px] items-center justify-center p-2 font-inter text-caption text-ink-secondary hover:text-ink-primary transition-colors"
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? 'Hide' : 'Show'}
@@ -139,7 +139,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 h-12 w-full rounded-input bg-ink-primary font-inter text-body font-medium text-white transition-opacity duration-200 ease-out hover:opacity-90 disabled:opacity-50 md:h-10"
+            className="mt-2 h-[52px] w-full rounded-input bg-ink-primary font-inter text-body font-medium text-white transition-opacity duration-200 ease-out hover:opacity-90 disabled:opacity-50 md:h-10"
           >
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
