@@ -111,43 +111,28 @@ export default async function AccountPage() {
           Invite colleagues to view this portal under your account.
         </p>
 
-        {profile?.entity_id ? (
-          <>
-            {teamMembers.length > 0 && (
-              <ul className="mb-5 flex flex-col gap-3">
-                {teamMembers.map((member) => (
-                  <li key={member.id} className="flex items-center gap-3">
-                    <div className="h-7 w-7 rounded-full bg-surface-warm border border-border-hairline flex items-center justify-center font-inter text-[10px] font-medium text-ink-secondary shrink-0">
-                      {(member.full_name?.[0] ?? member.email?.[0] ?? '?').toUpperCase()}
-                    </div>
-                    <div>
-                      {member.full_name && (
-                        <p className="font-inter text-body text-ink-primary leading-tight">
-                          {member.full_name}
-                        </p>
-                      )}
-                      <p className="font-inter text-caption text-ink-secondary">
-                        {member.email}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <InviteTeamMemberForm />
-          </>
-        ) : (
-          <p className="font-inter text-caption text-ink-secondary">
-            Contact{' '}
-            <a
-              href="mailto:ir@neweraventures.com"
-              className="text-ink-primary underline underline-offset-2"
-            >
-              ir@neweraventures.com
-            </a>{' '}
-            to enable team access for your account.
-          </p>
+        {teamMembers.length > 0 && (
+          <ul className="mb-5 flex flex-col gap-3">
+            {teamMembers.map((member) => (
+              <li key={member.id} className="flex items-center gap-3">
+                <div className="h-7 w-7 rounded-full bg-surface-warm border border-border-hairline flex items-center justify-center font-inter text-[10px] font-medium text-ink-secondary shrink-0">
+                  {(member.full_name?.[0] ?? member.email?.[0] ?? '?').toUpperCase()}
+                </div>
+                <div>
+                  {member.full_name && (
+                    <p className="font-inter text-body text-ink-primary leading-tight">
+                      {member.full_name}
+                    </p>
+                  )}
+                  <p className="font-inter text-caption text-ink-secondary">
+                    {member.email}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
         )}
+        <InviteTeamMemberForm />
       </div>
 
       {/* Security card */}

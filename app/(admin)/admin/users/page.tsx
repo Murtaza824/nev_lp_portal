@@ -2,24 +2,29 @@ import { createAdminClient } from '@/lib/supabase/server'
 import { formatUSD, formatDate } from '@/lib/format'
 import { InviteLPForm } from '@/components/admin/InviteLPForm'
 import { CommitmentEditCell } from '@/components/admin/CommitmentEditCell'
-import type { Profile } from '@/lib/types'
+import { EntityAssignCell } from '@/components/admin/EntityAssignCell'
+import type { Profile, LpEntity } from '@/lib/types'
 import type { User } from '@supabase/supabase-js'
 
+type ProfileWithEntity = Profile & { lp_entities: LpEntity | null }
+
 type UserRow = {
-  profile: Profile
+  profile: ProfileWithEntity
   authUser: User | null
 }
 
 export default async function AdminUsersPage() {
   const adminSupabase = createAdminClient()
 
-  const [profilesResult, authUsersResult] = await Promise.all([
-    adminSupabase.from('profiles').select('*').order('created_at', { ascending: false }),
+  const [profilesResult, authUsersResult, entitiesResult] = await Promise.all([
+    adminSupabase.from('profiles').select('*, lp_entities(*)').order('created_at', { ascending: false }),
     adminSupabase.auth.admin.listUsers({ perPage: 1000 }),
+    adminSupabase.from('lp_entities').select('*').order('name'),
   ])
 
-  const profiles = (profilesResult.data ?? []) as Profile[]
+  const profiles = (profilesResult.data ?? []) as unknown as ProfileWithEntity[]
   const authUsers: User[] = authUsersResult.data?.users ?? []
+  const allEntities = (entitiesResult.data ?? []) as LpEntity[]
 
   // Build a map from user id → auth.users row
   const authUserMap: Record<string, User> = {}
@@ -62,6 +67,9 @@ export default async function AdminUsersPage() {
               <th className="py-3 pr-6 text-left font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary">
                 Email
               </th>
+              <th className="py-3 pr-6 text-left font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary">
+                Entity
+              </th>
               <th className="py-3 pr-6 text-right font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary">
                 Commitment
               </th>
@@ -89,6 +97,18 @@ export default async function AdminUsersPage() {
                   </td>
                   <td className="py-4 pr-6 font-inter text-body text-ink-secondary">
                     {profile.email || '—'}
+                  </td>
+                  <td className="py-4 pr-6">
+                    {profile.role === 'lp' ? (
+                      <EntityAssignCell
+                        userId={profile.id}
+                        lpName={profile.full_name}
+                        currentEntity={profile.lp_entities}
+                        allEntities={allEntities}
+                      />
+                    ) : (
+                      <span className="font-inter text-body text-ink-tertiary">—</span>
+                    )}
                   </td>
                   <td className="py-4 pr-6 text-right">
                     {profile.role === 'lp' ? (
@@ -119,7 +139,7 @@ export default async function AdminUsersPage() {
             })}
             {rows.length === 0 && (
               <tr>
-                <td colSpan={5} className="py-12 text-center font-inter text-body text-ink-secondary">
+                <td colSpan={6} className="py-12 text-center font-inter text-body text-ink-secondary">
                   No users yet. Invite an LP above.
                 </td>
               </tr>
@@ -158,6 +178,11 @@ export default async function AdminUsersPage() {
                     </span>
                   )}
                 </div>
+                {profile.role === 'lp' && profile.lp_entities && (
+                  <p className="font-inter text-caption text-ink-secondary mt-1 mb-2">
+                    {profile.lp_entities.name}
+                  </p>
+                )}
                 <div className="flex items-center justify-between">
                   {profile.role === 'lp' ? (
                     <CommitmentEditCell

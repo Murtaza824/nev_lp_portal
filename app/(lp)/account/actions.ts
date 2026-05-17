@@ -34,14 +34,38 @@ export async function inviteTeamMember(formData: FormData) {
     return { error: 'Only LPs can invite team members.' }
   }
 
-  if (!profile.entity_id) {
-    return {
-      error:
-        'Your account is not linked to an LP entity. Contact ir@neweraventures.com to enable team access.',
+  const adminSupabase = createAdminClient()
+
+  let entityId = profile.entity_id
+
+  if (!entityId) {
+    // Auto-create an entity for this LP so they can invite team members
+    const { data: fullProfile } = await supabase
+      .from('profiles')
+      .select('full_name, commitment_amount, email')
+      .eq('id', user.id)
+      .single()
+    const fp = fullProfile as Pick<Profile, 'full_name' | 'commitment_amount' | 'email'> | null
+    const entityName = fp?.full_name ?? fp?.email ?? 'My entity'
+
+    const { data: newEntity, error: entityError } = await adminSupabase
+      .from('lp_entities')
+      .insert({ name: entityName, commitment_amount: fp?.commitment_amount ?? null })
+      .select()
+      .single()
+
+    if (entityError || !newEntity) {
+      return { error: entityError?.message ?? 'Could not create entity for team access.' }
     }
+
+    await adminSupabase
+      .from('profiles')
+      .update({ entity_id: newEntity.id })
+      .eq('id', user.id)
+
+    entityId = newEntity.id
   }
 
-  const adminSupabase = createAdminClient()
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL ??
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://lp.neweraventures.com')
@@ -59,7 +83,7 @@ export async function inviteTeamMember(formData: FormData) {
 
   await adminSupabase
     .from('profiles')
-    .update({ entity_id: profile.entity_id })
+    .update({ entity_id: entityId })
     .eq('id', userId)
 
   revalidatePath('/account')
