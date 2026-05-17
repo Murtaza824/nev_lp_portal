@@ -39,7 +39,7 @@ export function PortfolioMobileList({ companies }: PortfolioMobileListProps) {
           id="portfolio-sort"
           value={sort}
           onChange={(e) => setSort(e.target.value as SortOption)}
-          className="rounded-input border border-border-hairline bg-surface px-3 py-2 font-inter text-body text-ink-primary focus:outline-none focus:ring-2 focus:ring-accent-positive"
+          className="rounded-input border border-border-hairline bg-surface px-3 py-3 font-inter text-body text-ink-primary focus:outline-none focus:ring-2 focus:ring-accent-positive"
         >
           <option value="recent">Most recent</option>
           <option value="largest">Largest position</option>

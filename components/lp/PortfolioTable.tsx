@@ -157,7 +157,7 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
               colSpan={3}
               className="py-3 pr-4 font-inter font-medium text-body text-ink-primary"
             >
-              Total
+              Totals
             </td>
             <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
               {formatUSD(totalCheckSize)}

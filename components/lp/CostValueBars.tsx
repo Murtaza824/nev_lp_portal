@@ -36,7 +36,7 @@ export function CostValueBars({ companies }: CostValueBarsProps) {
           return (
             <div key={company.id} className="flex items-center gap-3">
               {/* Company name */}
-              <span className="w-[100px] shrink-0 font-inter text-body text-ink-primary truncate">
+              <span className="w-[80px] md:w-[100px] shrink-0 font-inter text-body text-ink-primary truncate">
                 {company.name}
               </span>
 
@@ -60,7 +60,7 @@ export function CostValueBars({ companies }: CostValueBarsProps) {
 
               {/* Multiple readout */}
               <span
-                className={`w-[60px] shrink-0 text-right font-mono text-mono-sm ${multiple > 1.0 ? 'text-accent-positive' : 'text-ink-secondary'}`}
+                className={`w-[50px] md:w-[60px] shrink-0 text-right font-mono text-mono-sm ${multiple > 1.0 ? 'text-accent-positive' : 'text-ink-secondary'}`}
               >
                 {formatMult(multiple)}
               </span>

@@ -79,10 +79,10 @@ export default async function PortfolioCompanyPage({ params }: Props) {
             alt={`${company.name} logo`}
             width={64}
             height={64}
-            className="rounded-lg object-contain bg-surface-warm shrink-0"
+            className="w-14 h-14 md:w-16 md:h-16 rounded-[8px] object-contain bg-surface-warm shrink-0"
           />
         ) : (
-          <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg bg-surface-warm border border-border-hairline flex items-center justify-center shrink-0">
+          <div className="w-14 h-14 md:w-16 md:h-16 rounded-[8px] bg-surface-warm border border-border-hairline flex items-center justify-center shrink-0">
             <span className="font-fraunces text-[22px] text-ink-secondary">
               {company.name.charAt(0)}
             </span>

@@ -14,7 +14,7 @@ export function StatBlock({
   label,
   value,
   secondary,
-  valueClassName = 'font-mono text-mono-lg md:text-mono-lg text-ink-primary',
+  valueClassName = 'font-mono text-mono-lg-mobile md:text-mono-lg text-ink-primary',
   className = '',
 }: StatBlockProps) {
   return (

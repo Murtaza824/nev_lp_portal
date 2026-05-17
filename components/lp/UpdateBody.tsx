@@ -12,7 +12,7 @@ export function UpdateBody({ markdown }: UpdateBodyProps) {
       <ReactMarkdown
         components={{
           p: ({ children }) => (
-            <p className="font-inter text-body-lg-mobile md:text-body-lg text-ink-primary leading-[1.75] mb-6">
+            <p className="font-inter text-body-lg-mobile md:text-body-lg text-ink-primary leading-[1.65] md:leading-[1.75] mb-6">
               {children}
             </p>
           ),
@@ -27,7 +27,7 @@ export function UpdateBody({ markdown }: UpdateBodyProps) {
             </h3>
           ),
           blockquote: ({ children }) => (
-            <blockquote className="border-l-[4px] border-accent-positive pl-4 italic font-fraunces text-[20px] text-ink-primary my-6">
+            <blockquote className="border-l-[4px] border-accent-positive pl-4 italic font-fraunces text-[18px] md:text-[20px] text-ink-primary my-6">
               {children}
             </blockquote>
           ),
@@ -36,13 +36,13 @@ export function UpdateBody({ markdown }: UpdateBodyProps) {
             const isBlock = className?.startsWith('language-')
             if (isBlock) {
               return (
-                <code className="block font-mono text-mono-sm text-ink-primary bg-surface-warm px-4 py-3 rounded my-4 overflow-x-auto">
+                <code className="block font-mono text-[15px] md:text-[16px] text-ink-primary bg-surface-warm px-4 py-3 rounded my-4 overflow-x-auto">
                   {children}
                 </code>
               )
             }
             return (
-              <code className="font-mono text-mono-sm text-ink-primary bg-surface-warm px-1 rounded">
+              <code className="font-mono text-[15px] md:text-[16px] text-ink-primary bg-surface-warm px-1 rounded">
                 {children}
               </code>
             )

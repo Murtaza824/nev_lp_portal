@@ -23,7 +23,7 @@ export default async function DashboardPage() {
 
   if (!user) redirect('/login')
 
-  const [fundResult, profileResult, updateResult] = await Promise.all([
+  const [fundResult, profileResult, updateResult, companiesCountResult] = await Promise.all([
     supabase.from('fund').select('*').single(),
     supabase
       .from('profiles')
@@ -37,11 +37,16 @@ export default async function DashboardPage() {
       .order('published_at', { ascending: false })
       .limit(1)
       .maybeSingle(),
+    supabase
+      .from('portfolio_companies')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'active'),
   ])
 
   const fund = fundResult.data as Fund | null
   const profile = profileResult.data as ProfileWithEntity | null
   const entity: LpEntity | null = profile?.lp_entities ?? null
+  const investmentCount = companiesCountResult.count ?? 0
 
   // Effective commitment: entity overrides profile
   const effectiveCommitment =
@@ -66,15 +71,15 @@ export default async function DashboardPage() {
   // Multiple coloring
   const moicColor =
     grossMoic >= 1.0
-      ? 'font-mono text-mono-lg text-accent-positive'
+      ? 'font-mono text-mono-lg-mobile md:text-mono-lg text-accent-positive'
       : grossMoic < 0.95
-        ? 'font-mono text-mono-lg text-accent-negative'
-        : 'font-mono text-mono-lg text-ink-primary'
+        ? 'font-mono text-mono-lg-mobile md:text-mono-lg text-accent-negative'
+        : 'font-mono text-mono-lg-mobile md:text-mono-lg text-ink-primary'
 
   const currentValueColor =
     lpCurrentValue >= effectiveCommitment
-      ? 'font-mono text-mono-lg text-accent-positive'
-      : 'font-mono text-mono-lg text-ink-primary'
+      ? 'font-mono text-mono-lg-mobile md:text-mono-lg text-accent-positive'
+      : 'font-mono text-mono-lg-mobile md:text-mono-lg text-ink-primary'
 
   // Latest update
   const latestUpdate = updateResult.data as UpdateWithAuthor | null
@@ -103,24 +108,24 @@ export default async function DashboardPage() {
             valueClassName={currentValueColor}
           />
           <StatBlock
-            label="Multiple"
+            label="Gross MOIC"
             value={formatMult(grossMoic)}
             valueClassName={moicColor}
           />
         </div>
         {fund?.as_of_date && (
           <p className="mt-4 font-inter text-caption text-ink-secondary">
-            As of {formatDate(fund.as_of_date)} · Net of fees and carry not yet applied
+            As of <span className="font-mono">{formatDate(fund.as_of_date)}</span> · Net of fees and carry not yet applied
           </p>
         )}
       </section>
 
       {/* ── Block 2: Fund snapshot ──────────────────────────────────────── */}
-      <section aria-labelledby="fund-heading" className="mt-16 md:mt-[64px]">
+      <section aria-labelledby="fund-heading" className="mt-10 md:mt-[64px]">
         <EyebrowCaption className="mb-6">NEV Fund I</EyebrowCaption>
         {/* 2-across × 3-rows mobile, 3-across × 2-rows desktop */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-8 md:grid-cols-3">
-          <StatBlock label="Investments" value="11" />
+          <StatBlock label="Investments" value={String(investmentCount)} />
           <StatBlock
             label="Capital committed"
             value={formatUSD(totalCommitted)}
@@ -141,13 +146,13 @@ export default async function DashboardPage() {
           <StatBlock
             label="Gross MOIC"
             value={formatMult(grossMoic)}
-            valueClassName="font-mono text-mono-lg text-accent-positive"
+            valueClassName="font-mono text-mono-lg-mobile md:text-mono-lg text-accent-positive"
           />
         </div>
       </section>
 
       {/* ── Block 3: Latest update ──────────────────────────────────────── */}
-      <section aria-labelledby="updates-heading" className="mt-16 md:mt-[64px]">
+      <section aria-labelledby="updates-heading" className="mt-10 md:mt-[64px]">
         <EyebrowCaption className="mb-6">Latest from the GP</EyebrowCaption>
 
         {latestUpdate ? (

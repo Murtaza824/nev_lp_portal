@@ -59,8 +59,7 @@ export function ChangePasswordForm() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="w-full rounded-input border border-border-hairline bg-surface px-4 font-inter text-body text-ink-primary hover:bg-surface-warm transition-colors duration-200 text-left"
-          style={{ height: '40px' }}
+          className="w-full h-12 md:h-10 rounded-input border border-border-hairline bg-surface px-4 font-inter text-body text-ink-primary hover:bg-surface-warm transition-colors duration-200 text-left"
         >
           Change password
         </button>
@@ -81,8 +80,7 @@ export function ChangePasswordForm() {
               autoComplete="new-password"
               minLength={8}
               required
-              className="w-full rounded-input border border-border-hairline bg-surface px-3 font-inter text-body text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-positive"
-              style={{ height: '40px' }}
+              className="w-full h-12 md:h-10 rounded-input border border-border-hairline bg-surface px-3 font-inter text-body text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-positive"
             />
           </div>
           <div>
@@ -99,8 +97,7 @@ export function ChangePasswordForm() {
               onChange={(e) => setConfirm(e.target.value)}
               autoComplete="new-password"
               required
-              className="w-full rounded-input border border-border-hairline bg-surface px-3 font-inter text-body text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-positive"
-              style={{ height: '40px' }}
+              className="w-full h-12 md:h-10 rounded-input border border-border-hairline bg-surface px-3 font-inter text-body text-ink-primary placeholder:text-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent-positive"
             />
           </div>
           {error && (
@@ -110,8 +107,7 @@ export function ChangePasswordForm() {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 rounded-input bg-ink-primary px-4 font-inter text-body text-white hover:opacity-90 transition-opacity disabled:opacity-50"
-              style={{ height: '40px' }}
+              className="flex-1 h-12 md:h-10 rounded-input bg-ink-primary px-4 font-inter text-body text-white hover:opacity-90 transition-opacity disabled:opacity-50"
             >
               {loading ? 'Saving…' : 'Save password'}
             </button>
@@ -123,8 +119,7 @@ export function ChangePasswordForm() {
                 setPassword('')
                 setConfirm('')
               }}
-              className="rounded-input border border-border-hairline bg-surface px-4 font-inter text-body text-ink-primary hover:bg-surface-warm transition-colors"
-              style={{ height: '40px' }}
+              className="h-12 md:h-10 rounded-input border border-border-hairline bg-surface px-4 font-inter text-body text-ink-primary hover:bg-surface-warm transition-colors"
             >
               Cancel
             </button>
@@ -135,8 +130,7 @@ export function ChangePasswordForm() {
       <button
         type="button"
         onClick={handleSignOut}
-        className="w-full rounded-input border border-border-hairline bg-surface px-4 font-inter text-body text-accent-negative hover:bg-surface-warm transition-colors duration-200 text-left"
-        style={{ height: '40px' }}
+        className="w-full h-12 md:h-10 rounded-input border border-border-hairline bg-surface px-4 font-inter text-body text-accent-negative hover:bg-surface-warm transition-colors duration-200 text-left"
       >
         Sign out
       </button>

@@ -63,7 +63,7 @@ export default async function UpdateDetailPage({ params }: Props) {
 
       {/* Subtitle */}
       {update.subtitle && (
-        <p className="font-inter italic text-[18px] text-ink-secondary leading-relaxed mt-3 mb-5">
+        <p className="font-fraunces italic text-heading-mobile md:text-heading text-ink-secondary leading-relaxed mt-3 mb-5">
           {update.subtitle}
         </p>
       )}
