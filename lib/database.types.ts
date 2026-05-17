@@ -6,12 +6,39 @@
 export type Database = {
   public: {
     Tables: {
+      lp_entities: {
+        Row: {
+          id: string
+          name: string
+          commitment_amount: number | null
+          committed_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          commitment_amount?: number | null
+          committed_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          commitment_amount?: number | null
+          committed_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
       profiles: {
         Row: {
           id: string
           full_name: string | null
           email: string | null
           role: 'lp' | 'admin'
+          entity_id: string | null
           commitment_amount: number | null
           committed_at: string | null
           created_at: string
@@ -22,6 +49,7 @@ export type Database = {
           full_name?: string | null
           email?: string | null
           role?: 'lp' | 'admin'
+          entity_id?: string | null
           commitment_amount?: number | null
           committed_at?: string | null
           created_at?: string
@@ -32,6 +60,7 @@ export type Database = {
           full_name?: string | null
           email?: string | null
           role?: 'lp' | 'admin'
+          entity_id?: string | null
           commitment_amount?: number | null
           committed_at?: string | null
           created_at?: string

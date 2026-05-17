@@ -6,6 +6,9 @@
 
 import type { Database } from './database.types'
 
+export type LpEntity = Database['public']['Tables']['lp_entities']['Row']
+export type LpEntityInsert = Database['public']['Tables']['lp_entities']['Insert']
+export type LpEntityUpdate = Database['public']['Tables']['lp_entities']['Update']
 export type Profile = Database['public']['Tables']['profiles']['Row']
 export type Fund = Database['public']['Tables']['fund']['Row']
 export type PortfolioCompany = Database['public']['Tables']['portfolio_companies']['Row']
