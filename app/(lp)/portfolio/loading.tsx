@@ -1,3 +1,12 @@
+const COL_WIDTHS = [
+  'w-[180px]',
+  'w-[100px]',
+  'w-20',
+  'w-[90px]',
+  'w-[90px]',
+  'w-20',
+] as const
+
 export default function PortfolioLoading() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 md:px-8">
@@ -11,23 +20,15 @@ export default function PortfolioLoading() {
       <div className="hidden md:block">
         {/* Header row */}
         <div className="flex gap-4 border-b border-border-hairline pb-3 mb-3">
-          {[180, 100, 80, 90, 90, 80].map((w, i) => (
-            <div
-              key={i}
-              className="h-3 rounded bg-surface-warm animate-pulse"
-              style={{ width: w }}
-            />
+          {COL_WIDTHS.map((w, i) => (
+            <div key={i} className={`h-3 rounded bg-surface-warm animate-pulse ${w}`} />
           ))}
         </div>
         {/* Data rows */}
         {Array.from({ length: 8 }).map((_, i) => (
           <div key={i} className="flex gap-4 py-4 border-b border-border-hairline">
-            {[180, 100, 80, 90, 90, 80].map((w, j) => (
-              <div
-                key={j}
-                className="h-4 rounded bg-surface-warm animate-pulse"
-                style={{ width: w }}
-              />
+            {COL_WIDTHS.map((w, j) => (
+              <div key={j} className={`h-4 rounded bg-surface-warm animate-pulse ${w}`} />
             ))}
           </div>
         ))}
