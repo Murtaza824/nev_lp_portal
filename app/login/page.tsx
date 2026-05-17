@@ -11,9 +11,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [magicLoading, setMagicLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [magicSent, setMagicSent] = useState(false)
 
   const supabase = createClient()
 
@@ -28,39 +26,12 @@ export default function LoginPage() {
     })
 
     if (signInError) {
-      // Generic message — do not reveal whether email exists
       setError('Incorrect email or password. Please try again.')
       setLoading(false)
       return
     }
 
     router.push('/dashboard')
-  }
-
-  async function handleMagicLink() {
-    if (!email) {
-      setError('Enter your email address first.')
-      return
-    }
-    setError(null)
-    setMagicLoading(true)
-
-    const { error: otpError } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: window.location.origin + '/auth/callback?next=/dashboard',
-      },
-    })
-
-    setMagicLoading(false)
-
-    if (otpError) {
-      // Generic — never confirm/deny whether email is registered
-      setError('Something went wrong. Please try again.')
-      return
-    }
-
-    setMagicSent(true)
   }
 
   return (
@@ -73,7 +44,7 @@ export default function LoginPage() {
 
         {/* Subhead */}
         <p className="mt-4 text-center font-inter text-body text-ink-secondary">
-          Limited partner portal
+          Limited Partner portal
         </p>
 
         {/* Form */}
@@ -145,38 +116,9 @@ export default function LoginPage() {
           </button>
         </form>
 
-        {/* Divider */}
-        <div className="relative mt-6 flex items-center">
-          <div className="flex-1 border-t border-border-hairline" />
-          <span className="mx-3 font-inter text-caption text-ink-tertiary">or</span>
-          <div className="flex-1 border-t border-border-hairline" />
-        </div>
-
-        {/* Magic link */}
-        {magicSent ? (
-          <p className="mt-4 text-center font-inter text-body text-ink-secondary">
-            Magic link sent — check your inbox.
-          </p>
-        ) : (
-          <button
-            type="button"
-            onClick={handleMagicLink}
-            disabled={magicLoading}
-            className="mt-4 h-12 w-full rounded-input border border-border-hairline bg-surface font-inter text-body text-ink-primary transition-colors duration-200 ease-out hover:bg-surface-warm disabled:opacity-50 md:h-10"
-          >
-            {magicLoading ? 'Sending…' : 'Email me a magic link'}
-          </button>
-        )}
-
         {/* Footer */}
         <p className="mt-6 text-center font-inter text-caption text-ink-tertiary">
-          Access by invitation only.{' '}
-          <a
-            href="mailto:ir@neweraventures.com"
-            className="underline hover:text-ink-secondary"
-          >
-            Contact ir@neweraventures.com
-          </a>
+          Access by invitation only.
         </p>
       </div>
     </div>
