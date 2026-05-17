@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
 
 export function ChangePasswordForm() {
   const [open, setOpen] = useState(false)
@@ -12,7 +11,6 @@ export function ChangePasswordForm() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const supabase = createClient()
-  const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -40,11 +38,6 @@ export function ChangePasswordForm() {
     setOpen(false)
     setPassword('')
     setConfirm('')
-  }
-
-  async function handleSignOut() {
-    await supabase.auth.signOut()
-    router.push('/login')
   }
 
   return (
@@ -107,7 +100,7 @@ export function ChangePasswordForm() {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 h-12 md:h-10 rounded-input bg-ink-primary px-4 font-inter text-body text-white hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="flex-1 h-12 md:h-10 rounded-input bg-ink-primary px-4 font-inter text-body text-canvas hover:opacity-90 transition-opacity disabled:opacity-50"
             >
               {loading ? 'Saving…' : 'Save password'}
             </button>
@@ -127,13 +120,6 @@ export function ChangePasswordForm() {
         </form>
       )}
 
-      <button
-        type="button"
-        onClick={handleSignOut}
-        className="w-full h-12 md:h-10 rounded-input border border-border-hairline bg-surface px-4 font-inter text-body text-accent-negative hover:bg-surface-warm transition-colors duration-200 text-left"
-      >
-        Sign out
-      </button>
     </div>
   )
 }
