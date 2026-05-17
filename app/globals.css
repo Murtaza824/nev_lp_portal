@@ -3,21 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --bg-canvas:        #FAF7F0;
-  --bg-surface:       #FFFFFF;
-  --bg-surface-warm:  #F4F0E5;
-  --ink-primary:      #1A1F2C;
-  --ink-secondary:    #6B6F76;
-  --ink-tertiary:     #A8A39A;
-  --accent-positive:  #0F6E56;
-  --accent-negative:  #993C1D;
-  --border-hairline:  #E5E0D5;
-  --pill-mint-bg:     #DFF1E5;
-  --pill-mint-ink:    #1D5B3F;
-  --pill-peach-bg:    #F8E6D5;
-  --pill-peach-ink:   #8B4A1F;
-  --pill-slate-bg:    #E1E5EB;
-  --pill-slate-ink:   #3A4554;
+  --bg-canvas:        #0A0A0A;
+  --bg-surface:       #141414;
+  --bg-surface-warm:  #1C1C1C;
+  --ink-primary:      #FFFFFF;
+  --ink-secondary:    rgba(255, 255, 255, 0.55);
+  --ink-tertiary:     rgba(255, 255, 255, 0.30);
+  --accent-positive:  #4ADE80;
+  --accent-negative:  #F87171;
+  --border-hairline:  rgba(255, 255, 255, 0.10);
+  --pill-mint-bg:     rgba(74, 222, 128, 0.12);
+  --pill-mint-ink:    #4ADE80;
+  --pill-peach-bg:    rgba(251, 146, 60, 0.12);
+  --pill-peach-ink:   #FB923C;
+  --pill-slate-bg:    rgba(255, 255, 255, 0.07);
+  --pill-slate-ink:   rgba(255, 255, 255, 0.50);
 }
 
 html,
@@ -26,7 +26,7 @@ body {
 }
 
 html {
-  background: var(--ink-primary);
+  background: var(--bg-canvas);
 }
 
 body {

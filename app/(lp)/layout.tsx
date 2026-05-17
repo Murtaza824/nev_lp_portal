@@ -7,7 +7,7 @@ export default function LPLayout({ children }: { children: React.ReactNode }) {
       <NavDesktop />
       <NavMobile />
       <main className="flex-1">{children}</main>
-      <footer className="bg-ink-primary mt-20">
+      <footer className="bg-surface border-t border-border-hairline mt-20">
         <div className="mx-auto max-w-7xl px-4 py-12 md:px-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
             <div>

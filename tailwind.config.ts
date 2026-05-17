@@ -62,7 +62,7 @@ const config: Config = {
         'input': '6px',
       },
       boxShadow: {
-        'card-hover': '0 1px 2px rgba(26, 31, 44, 0.04)',
+        'card-hover': '0 0 0 1px rgba(255, 255, 255, 0.08)',
       },
       transitionDuration: {
         DEFAULT: '200ms',
