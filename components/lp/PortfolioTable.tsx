@@ -61,33 +61,31 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
               >
                 {/* Company */}
                 <td className="py-4 pr-6">
-                  <div className="flex items-center gap-1.5">
-                    <Link
-                      href={`/portfolio/${company.slug}`}
-                      className="font-inter font-medium text-body text-ink-primary hover:text-accent-positive transition-colors"
+                  <Link
+                    href={`/portfolio/${company.slug}`}
+                    className="font-inter font-medium text-body text-ink-primary hover:text-accent-positive transition-colors"
+                  >
+                    {company.name}
+                  </Link>
+                  {company.website && (
+                    <a
+                      href={company.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block ml-1.5 align-middle text-ink-tertiary hover:text-ink-secondary transition-colors"
+                      aria-label={`${company.name} website`}
                     >
-                      {company.name}
-                    </Link>
-                    {company.website && (
-                      <a
-                        href={company.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-ink-tertiary hover:text-ink-secondary transition-colors"
-                        aria-label={`${company.name} website`}
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="currentColor"
+                        aria-hidden="true"
                       >
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 12 12"
-                          fill="currentColor"
-                          aria-hidden="true"
-                        >
-                          <path d="M3.5 3a.5.5 0 000 1H7.29L2.15 9.15a.5.5 0 00.7.7L8 4.71V8.5a.5.5 0 001 0v-5a.5.5 0 00-.5-.5h-5z" />
-                        </svg>
-                      </a>
-                    )}
-                  </div>
+                        <path d="M3.5 3a.5.5 0 000 1H7.29L2.15 9.15a.5.5 0 00.7.7L8 4.71V8.5a.5.5 0 001 0v-5a.5.5 0 00-.5-.5h-5z" />
+                      </svg>
+                    </a>
+                  )}
                 </td>
                 {/* Stage */}
                 <td className="py-4 pr-4">
