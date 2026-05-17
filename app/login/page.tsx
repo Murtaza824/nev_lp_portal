@@ -110,7 +110,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 h-[52px] w-full rounded-input bg-ink-primary font-inter text-body font-medium text-white transition-opacity duration-200 ease-out hover:opacity-90 disabled:opacity-50 md:h-10"
+            className="mt-2 h-[52px] w-full rounded-input bg-ink-primary font-inter text-body font-medium text-canvas transition-opacity duration-200 ease-out hover:opacity-90 disabled:opacity-50 md:h-10"
           >
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
