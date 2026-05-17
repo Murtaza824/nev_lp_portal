@@ -24,8 +24,20 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'New Era Ventures — LP Portal',
-  description: 'Limited Partner portal for New Era Ventures Fund I.',
+  title: {
+    default: 'NEV LP Portal',
+    template: '%s — NEV LP Portal',
+  },
+  description: 'New Era Ventures — Limited Partner Portal',
+  openGraph: {
+    title: 'NEV LP Portal',
+    description: 'New Era Ventures — Limited Partner Portal',
+    type: 'website',
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export const viewport: Viewport = {

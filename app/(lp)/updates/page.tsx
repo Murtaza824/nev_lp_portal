@@ -1,8 +1,14 @@
+import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { formatDate } from '@/lib/format'
 import type { Profile } from '@/lib/types'
+
+export const metadata: Metadata = {
+  title: 'Updates',
+  robots: { index: false, follow: false },
+}
 
 type UpdateWithAuthor = {
   id: string
@@ -43,8 +49,8 @@ export default async function UpdatesPage() {
 
       {/* Empty state */}
       {publishedUpdates.length === 0 && (
-        <p className="font-inter text-body text-ink-secondary">
-          Updates coming soon. Check back after our next portfolio meeting.
+        <p className="font-inter text-body text-ink-secondary text-center">
+          No updates yet. Check back soon.
         </p>
       )}
 

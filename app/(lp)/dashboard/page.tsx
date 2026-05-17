@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
@@ -5,6 +6,11 @@ import { formatUSD, formatMult, formatDate } from '@/lib/format'
 import { EyebrowCaption } from '@/components/ui/EyebrowCaption'
 import { StatBlock } from '@/components/ui/StatBlock'
 import type { Fund, Profile, LpEntity, Update } from '@/lib/types'
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+  robots: { index: false, follow: false },
+}
 
 type ProfileWithEntity = Profile & {
   lp_entities: LpEntity | null

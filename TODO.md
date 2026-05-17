@@ -5,7 +5,7 @@ Items logged from Phase 2 reviewer findings. Address before Phase 5 ships.
 ## Security
 - [x] **Supabase dashboard**: Disabled "Enable email signups" on 2026-05-17.
 - [ ] **Supabase dashboard**: Consider enabling `secure_password_change` (Authentication → Settings) — requires re-auth before password changes.
-- [ ] **Security headers**: Add Content-Security-Policy header once admin page domains and external scripts are finalized.
+- [ ] **Security headers**: Add Content-Security-Policy header once admin page domains and external scripts are finalized. Deferred from Phase 5 — CSP needs finalisation of all external domains (Supabase, fonts, OG image). Add to `next.config.mjs` `headers()` array when ready.
 
 ## Phase 3 deferred (low severity — address before Phase 5)
 - [ ] **UpdateBody paragraph spacing**: Tighten `mb-6` to `mb-5 md:mb-6` on mobile paragraphs (PRD §5 specifies 1.25em mobile vs 1.5em desktop spacing).

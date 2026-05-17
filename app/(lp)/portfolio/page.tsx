@@ -1,9 +1,15 @@
+import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { PortfolioTable } from '@/components/lp/PortfolioTable'
 import { PortfolioMobileList } from '@/components/lp/PortfolioMobileList'
 import { CostValueBars } from '@/components/lp/CostValueBars'
 import type { PortfolioCompany, CoInvestor } from '@/lib/types'
+
+export const metadata: Metadata = {
+  title: 'Portfolio',
+  robots: { index: false, follow: false },
+}
 
 export default async function PortfolioPage() {
   const supabase = createClient()
