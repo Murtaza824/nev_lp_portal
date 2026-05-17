@@ -20,36 +20,36 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse text-left">
-        <thead className="sticky top-16 bg-canvas">
-          <tr className="border-b border-border-hairline">
-            <th className="py-3 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary whitespace-nowrap">
+        <thead className="sticky top-16 z-10 bg-canvas">
+          <tr className="border-b-2 border-border-hairline">
+            <th className="pb-3 pt-2 pr-6 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-left min-w-[140px]">
               Company
             </th>
-            <th className="py-3 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary whitespace-nowrap">
+            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-left">
               Stage
             </th>
-            <th className="py-3 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary whitespace-nowrap text-right">
+            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
               Date
             </th>
-            <th className="py-3 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary whitespace-nowrap text-right">
+            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
               Check
             </th>
-            <th className="py-3 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary whitespace-nowrap text-right">
+            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
               Entry val
             </th>
-            <th className="py-3 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary whitespace-nowrap text-right">
+            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
               Own %
             </th>
-            <th className="py-3 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary whitespace-nowrap text-right">
+            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
               Current val
             </th>
-            <th className="py-3 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary whitespace-nowrap text-right">
+            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
               Mult
             </th>
-            <th className="py-3 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary whitespace-nowrap text-right">
+            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
               Pro rata
             </th>
-            <th className="py-3 font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary whitespace-nowrap">
+            <th className="pb-3 pt-2 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-left">
               Co-investors
             </th>
           </tr>
@@ -66,7 +66,7 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
                 className="border-b border-border-hairline hover:bg-surface-warm transition-colors duration-200"
               >
                 {/* Company */}
-                <td className="py-3 pr-4">
+                <td className="py-4 pr-6">
                   <div className="flex items-center gap-1.5">
                     <Link
                       href={`/portfolio/${company.slug}`}
@@ -96,39 +96,39 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
                   </div>
                 </td>
                 {/* Stage */}
-                <td className="py-3 pr-4">
+                <td className="py-4 pr-4">
                   <StagePill stage={company.stage} />
                 </td>
                 {/* Date */}
-                <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
+                <td className="py-4 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                   {company.invested_date ? formatDate(company.invested_date) : '—'}
                 </td>
                 {/* Check */}
-                <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
+                <td className="py-4 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                   {company.check_size ? formatUSD(company.check_size) : '—'}
                 </td>
                 {/* Entry val */}
-                <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
+                <td className="py-4 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                   {company.entry_valuation ? formatUSD(company.entry_valuation) : '—'}
                 </td>
                 {/* Own % */}
-                <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
+                <td className="py-4 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                   {company.ownership_pct != null
                     ? `${company.ownership_pct.toFixed(2)}%`
                     : '—'}
                 </td>
                 {/* Current val */}
-                <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
+                <td className="py-4 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                   {formatUSD(currentVal)}
                 </td>
                 {/* Mult */}
                 <td
-                  className={`py-3 pr-4 font-mono text-mono-md text-right whitespace-nowrap ${multiple > 1.0 ? 'text-accent-positive' : 'text-ink-primary'}`}
+                  className={`py-4 pr-4 font-mono text-mono-md text-right whitespace-nowrap ${multiple > 1.0 ? 'text-accent-positive' : 'text-ink-primary'}`}
                 >
                   {formatMult(multiple)}
                 </td>
                 {/* Pro rata */}
-                <td className="py-3 pr-4 text-right whitespace-nowrap">
+                <td className="py-4 pr-4 text-right whitespace-nowrap">
                   {company.pro_rata_rights ? (
                     <span className="inline-block rounded-pill bg-pill-mint-bg px-2 py-0.5 font-inter text-caption text-pill-mint-ink">
                       Yes
@@ -140,7 +140,7 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
                   )}
                 </td>
                 {/* Co-investors */}
-                <td className="py-3 font-inter text-caption text-ink-secondary max-w-[160px]">
+                <td className="py-4 font-inter text-caption text-ink-secondary max-w-[160px]">
                   <p className="line-clamp-2">
                     {coInvs.length > 0
                       ? coInvs.map((ci) => ci.name).join(', ')
@@ -155,18 +155,18 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
           <tr className="border-t border-border-hairline">
             <td
               colSpan={3}
-              className="py-3 pr-4 font-inter font-medium text-body text-ink-primary"
+              className="py-4 pr-4 font-inter font-medium text-body text-ink-primary"
             >
               Totals
             </td>
-            <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
+            <td className="py-4 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
               {formatUSD(totalCheckSize)}
             </td>
             <td colSpan={2} />
-            <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
+            <td className="py-4 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
               {formatUSD(totalCurrentValue)}
             </td>
-            <td className="py-3 pr-4 font-mono text-mono-md text-accent-positive text-right whitespace-nowrap">
+            <td className="py-4 pr-4 font-mono text-mono-md text-accent-positive text-right whitespace-nowrap">
               {formatMult(weightedMoic)}
             </td>
             <td colSpan={2} />

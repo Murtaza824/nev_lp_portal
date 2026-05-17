@@ -37,6 +37,16 @@ export default async function PortfolioPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 md:px-8 animate-fade-up">
+      {/* Page header */}
+      <div className="mb-10">
+        <h1 className="font-fraunces text-display-2-mobile md:text-display-2 text-ink-primary mb-1">
+          NEV portfolio
+        </h1>
+        <p className="font-inter text-body text-ink-secondary">
+          {companies.length} active {companies.length === 1 ? 'investment' : 'investments'} · Fund I
+        </p>
+      </div>
+
       {/* Desktop table — shown md and above */}
       <div className="hidden md:block">
         <PortfolioTable companies={companies} coInvestors={coInvestorMap} />

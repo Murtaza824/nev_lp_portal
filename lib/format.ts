@@ -16,7 +16,9 @@ export function formatUSD(n: number): string {
 
   if (abs >= 1_000_000) {
     const millions = abs / 1_000_000
-    return `${sign}$${millions.toFixed(2)}M`
+    // Strip trailing zeros: $13.00M → $13M, $1.30M → $1.3M, $1.56M → $1.56M
+    const formatted = parseFloat(millions.toFixed(2)).toString()
+    return `${sign}$${formatted}M`
   }
 
   if (abs >= 10_000) {
