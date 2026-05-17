@@ -20,6 +20,11 @@
   --pill-slate-ink:   #3A4554;
 }
 
+html {
+  /* Overscroll at the bottom shows dark (footer color) instead of canvas */
+  background: var(--ink-primary);
+}
+
 body {
   background: var(--bg-canvas);
   color: var(--ink-primary);

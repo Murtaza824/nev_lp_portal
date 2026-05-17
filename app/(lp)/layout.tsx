@@ -3,10 +3,10 @@ import { NavMobile } from '@/components/ui/NavMobile'
 
 export default function LPLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <NavDesktop />
       <NavMobile />
-      <main>{children}</main>
+      <main className="flex-1">{children}</main>
       <footer className="bg-ink-primary mt-20">
         <div className="mx-auto max-w-7xl px-4 py-12 md:px-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
@@ -31,6 +31,6 @@ export default function LPLayout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   )
 }
