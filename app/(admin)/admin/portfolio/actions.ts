@@ -120,9 +120,9 @@ export async function addCoInvestor(companyId: string, formData: FormData) {
   // Get current max order
   const { data: existing } = await adminSupabase
     .from('co_investors')
-    .select('"order"')
+    .select('order')
     .eq('company_id', companyId)
-    .order('"order"', { ascending: false })
+    .order('order', { ascending: false })
     .limit(1)
 
   const maxOrder = existing && existing.length > 0 ? (existing[0] as { order: number }).order : -1

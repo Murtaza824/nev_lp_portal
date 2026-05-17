@@ -27,7 +27,7 @@ export default async function AdminPortfolioEditPage({ params }: PageProps) {
     adminSupabase
       .from('co_investors')
       .select('*')
-      .order('"order"', { ascending: true }),
+      .order('order', { ascending: true }),
   ])
 
   if (!companyResult.data) notFound()

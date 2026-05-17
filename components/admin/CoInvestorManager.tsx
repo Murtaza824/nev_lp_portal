@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
 import { addCoInvestor, removeCoInvestor } from '@/app/(admin)/admin/portfolio/actions'
 import type { CoInvestor } from '@/lib/types'
 
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export function CoInvestorManager({ companyId, slug, initialCoInvestors }: Props) {
+  const router = useRouter()
   const [coInvestors, setCoInvestors] = useState(initialCoInvestors)
   const [newName, setNewName] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -29,7 +31,7 @@ export function CoInvestorManager({ companyId, slug, initialCoInvestors }: Props
         setError(result.error)
       } else {
         setNewName('')
-        // Optimistic update — actual data revalidated server-side
+        router.refresh()
       }
     })
   }
