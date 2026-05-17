@@ -10,16 +10,14 @@ const NAV_LINKS = [
 export function NavDesktop() {
   return (
     <header className="sticky top-0 z-50 hidden h-16 bg-canvas border-b border-border-hairline md:flex">
-      <div className="grid grid-cols-3 items-center h-full max-w-7xl mx-auto px-8">
-        {/* Column 1: logo, left-aligned */}
-        <div className="flex items-center">
-          <Link href="/dashboard" aria-label="New Era Ventures — home">
-            <Logo className="h-9 w-auto text-ink-primary" />
-          </Link>
-        </div>
+      <div className="flex items-center h-full max-w-7xl mx-auto px-8">
+        {/* Logo, far left */}
+        <Link href="/dashboard" aria-label="New Era Ventures — home" className="shrink-0">
+          <Logo className="h-9 w-auto text-ink-primary" />
+        </Link>
 
-        {/* Column 2: nav links, centered */}
-        <nav aria-label="Main navigation" className="flex items-center justify-center gap-8">
+        {/* Nav links, centered in remaining space */}
+        <nav aria-label="Main navigation" className="flex-1 flex items-center justify-center gap-8">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -31,13 +29,11 @@ export function NavDesktop() {
           ))}
         </nav>
 
-        {/* Column 3: avatar placeholder (auth wiring in Phase 2), right-aligned */}
-        <div className="flex items-center justify-end">
-          <div
-            className="h-8 w-8 rounded-full bg-surface-warm border border-border-hairline"
-            aria-hidden="true"
-          />
-        </div>
+        {/* Avatar, far right */}
+        <div
+          className="h-8 w-8 rounded-full bg-surface-warm border border-border-hairline shrink-0"
+          aria-hidden="true"
+        />
       </div>
     </header>
   )
