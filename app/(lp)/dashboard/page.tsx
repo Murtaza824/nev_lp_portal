@@ -160,7 +160,7 @@ export default async function DashboardPage() {
                 {formatDate(latestUpdate.published_at)}
               </p>
             )}
-            <h2 className="font-fraunces text-[22px] leading-tight text-ink-primary mb-2 md:text-[22px]">
+            <h2 className="font-fraunces text-[20px] leading-tight text-ink-primary mb-2 md:text-[22px]">
               {latestUpdate.title}
             </h2>
             {excerpt && (

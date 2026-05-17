@@ -100,30 +100,30 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
                   <StagePill stage={company.stage} />
                 </td>
                 {/* Date */}
-                <td className="py-3 pr-4 font-mono text-mono-sm text-ink-primary text-right whitespace-nowrap">
+                <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                   {company.invested_date ? formatDate(company.invested_date) : '—'}
                 </td>
                 {/* Check */}
-                <td className="py-3 pr-4 font-mono text-mono-sm text-ink-primary text-right whitespace-nowrap">
+                <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                   {company.check_size ? formatUSD(company.check_size) : '—'}
                 </td>
                 {/* Entry val */}
-                <td className="py-3 pr-4 font-mono text-mono-sm text-ink-primary text-right whitespace-nowrap">
+                <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                   {company.entry_valuation ? formatUSD(company.entry_valuation) : '—'}
                 </td>
                 {/* Own % */}
-                <td className="py-3 pr-4 font-mono text-mono-sm text-ink-primary text-right whitespace-nowrap">
+                <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                   {company.ownership_pct != null
                     ? `${company.ownership_pct.toFixed(2)}%`
                     : '—'}
                 </td>
                 {/* Current val */}
-                <td className="py-3 pr-4 font-mono text-mono-sm text-ink-primary text-right whitespace-nowrap">
+                <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                   {formatUSD(currentVal)}
                 </td>
                 {/* Mult */}
                 <td
-                  className={`py-3 pr-4 font-mono text-mono-sm text-right whitespace-nowrap ${multiple > 1.0 ? 'text-accent-positive' : 'text-ink-primary'}`}
+                  className={`py-3 pr-4 font-mono text-mono-md text-right whitespace-nowrap ${multiple > 1.0 ? 'text-accent-positive' : 'text-ink-primary'}`}
                 >
                   {formatMult(multiple)}
                 </td>
@@ -159,14 +159,14 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
             >
               Total
             </td>
-            <td className="py-3 pr-4 font-mono text-mono-sm text-ink-primary text-right whitespace-nowrap">
+            <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
               {formatUSD(totalCheckSize)}
             </td>
             <td colSpan={2} />
-            <td className="py-3 pr-4 font-mono text-mono-sm text-ink-primary text-right whitespace-nowrap">
+            <td className="py-3 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
               {formatUSD(totalCurrentValue)}
             </td>
-            <td className="py-3 pr-4 font-mono text-mono-sm text-accent-positive text-right whitespace-nowrap">
+            <td className="py-3 pr-4 font-mono text-mono-md text-accent-positive text-right whitespace-nowrap">
               {formatMult(weightedMoic)}
             </td>
             <td colSpan={2} />
