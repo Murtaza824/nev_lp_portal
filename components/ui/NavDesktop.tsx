@@ -10,33 +10,34 @@ const NAV_LINKS = [
 export function NavDesktop() {
   return (
     <header className="sticky top-0 z-50 hidden h-16 bg-canvas border-b border-border-hairline md:flex">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-8">
-        {/* Left — Logo */}
-        <Link href="/dashboard" aria-label="New Era Ventures — home">
-          <Logo className="h-9 w-auto text-ink-primary" />
-        </Link>
+      <div className="grid grid-cols-3 items-center h-full max-w-7xl mx-auto px-8">
+        {/* Column 1: logo, left-aligned */}
+        <div className="flex items-center">
+          <Link href="/dashboard" aria-label="New Era Ventures — home">
+            <Logo className="h-9 w-auto text-ink-primary" />
+          </Link>
+        </div>
 
-        {/* Center — nav links */}
-        <nav aria-label="Main navigation">
-          <ul className="flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-body font-inter text-ink-secondary hover:text-ink-primary transition-colors duration-200 ease-out"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        {/* Column 2: nav links, centered */}
+        <nav aria-label="Main navigation" className="flex items-center justify-center gap-8">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-body font-inter text-ink-secondary hover:text-ink-primary transition-colors duration-200 ease-out"
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
-        {/* Right — avatar placeholder (auth wiring in Phase 2) */}
-        <div
-          className="h-8 w-8 rounded-full bg-surface-warm border border-border-hairline"
-          aria-hidden="true"
-        />
+        {/* Column 3: avatar placeholder (auth wiring in Phase 2), right-aligned */}
+        <div className="flex items-center justify-end">
+          <div
+            className="h-8 w-8 rounded-full bg-surface-warm border border-border-hairline"
+            aria-hidden="true"
+          />
+        </div>
       </div>
     </header>
   )

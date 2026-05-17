@@ -43,3 +43,19 @@ body {
 .animate-fade-up {
   animation: fade-up 200ms ease-out both;
 }
+
+/* Mobile nav sheet slide-down animation — 200ms per PRD §3 */
+@keyframes slide-down {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 200ms ease-out both;
+}

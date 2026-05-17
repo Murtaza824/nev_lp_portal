@@ -57,7 +57,7 @@ export function NavMobile() {
           {/* Sheet */}
           <nav
             id="mobile-nav-sheet"
-            className="absolute left-0 right-0 top-full z-50 bg-canvas border-b border-border-hairline"
+            className="absolute left-0 right-0 top-full z-50 bg-canvas border-b border-border-hairline animate-slide-down"
           >
             <ul className="flex flex-col py-2">
               {NAV_LINKS.map((link) => (
