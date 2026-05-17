@@ -20,8 +20,12 @@
   --pill-slate-ink:   #3A4554;
 }
 
+html,
+body {
+  overscroll-behavior: none;
+}
+
 html {
-  /* Overscroll at the bottom shows dark (footer color) instead of canvas */
   background: var(--ink-primary);
 }
 
@@ -31,7 +35,6 @@ body {
   font-family: var(--font-inter), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overscroll-behavior: none;
 }
 
 /* Page mount fade-up animation — 8px per PRD §3 */
