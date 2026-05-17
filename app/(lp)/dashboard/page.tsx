@@ -122,7 +122,7 @@ export default async function DashboardPage() {
 
       {/* ── Block 2: Fund snapshot ──────────────────────────────────────── */}
       <section aria-labelledby="fund-heading" className="mt-10 md:mt-[64px]">
-        <EyebrowCaption className="mb-6">NEV Fund I</EyebrowCaption>
+        <EyebrowCaption className="mb-6">NEV Fund I Performance</EyebrowCaption>
         {/* 2-across × 3-rows mobile, 3-across × 2-rows desktop */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-8 md:grid-cols-3">
           <StatBlock label="Investments" value={String(investmentCount)} />
