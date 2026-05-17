@@ -1,90 +1,27 @@
 /**
- * TypeScript types for the NEV LP Portal data model.
- * Mirrors the Postgres schema defined in PRD §7.
- * Use `type` not `interface`. Snake_case column names per convention.
+ * Domain type aliases for the NEV LP Portal.
+ * These are re-exported from database.types.ts — the single source of truth.
+ * Use these aliases throughout the application instead of raw Database["public"]["Tables"]["..."]["Row"].
  */
 
-export type Profile = {
-  id: string
-  created_at: string
-  updated_at: string
-  full_name: string
-  email: string
-  role: 'lp' | 'admin'
-  commitment_amount: number | null
-  committed_at: string | null
-}
+import type { Database } from './database.types'
 
-export type Fund = {
-  id: string
-  created_at: string
-  updated_at: string
-  name: string
-  vintage: number
-  total_committed: number
-  total_called: number
-  total_deployed: number
-  total_current_value: number
-  as_of_date: string
-  last_updated: string
-}
+export type Profile = Database['public']['Tables']['profiles']['Row']
+export type Fund = Database['public']['Tables']['fund']['Row']
+export type PortfolioCompany = Database['public']['Tables']['portfolio_companies']['Row']
+export type ValuationEvent = Database['public']['Tables']['valuation_events']['Row']
+export type CoInvestor = Database['public']['Tables']['co_investors']['Row']
+export type Update = Database['public']['Tables']['updates']['Row']
 
-export type PortfolioCompany = {
-  id: string
-  created_at: string
-  updated_at: string
-  slug: string
-  name: string
-  logo_url: string | null
-  one_liner: string | null
-  sector: string | null
-  website: string | null
-  stage: 'Pre-Seed' | 'First Check' | 'Seed' | 'Series A'
-  status: 'active' | 'exited' | 'written_off'
-  thesis: string | null
-  invested_date: string
-  check_size: number
-  entry_valuation: number
-  ownership_pct: number
-  pro_rata_rights: boolean
-  current_valuation: number
-  current_multiple: number
-}
-
-export type ValuationEvent = {
-  id: string
-  created_at: string
-  updated_at: string
-  company_id: string
-  event_date: string
-  event_type: 'markup' | 'markdown' | 'exit' | 'writedown' | 'initial'
-  new_company_valuation: number
-  new_position_value: number
-  multiple: number
-  note: string | null
-}
-
-export type CoInvestor = {
-  id: string
-  created_at: string
-  updated_at: string
-  company_id: string
-  name: string
-  order: number
-}
-
-export type Update = {
-  id: string
-  created_at: string
-  updated_at: string
-  slug: string
-  title: string
-  subtitle: string | null
-  body_md: string
-  excerpt: string | null
-  author_id: string
-  related_company_id: string | null
-  pdf_url: string | null
-  status: 'draft' | 'published'
-  published_at: string | null
-}
+export type ProfileInsert = Database['public']['Tables']['profiles']['Insert']
+export type ProfileUpdate = Database['public']['Tables']['profiles']['Update']
+export type FundInsert = Database['public']['Tables']['fund']['Insert']
+export type FundUpdate = Database['public']['Tables']['fund']['Update']
+export type PortfolioCompanyInsert = Database['public']['Tables']['portfolio_companies']['Insert']
+export type PortfolioCompanyUpdate = Database['public']['Tables']['portfolio_companies']['Update']
+export type ValuationEventInsert = Database['public']['Tables']['valuation_events']['Insert']
+export type ValuationEventUpdate = Database['public']['Tables']['valuation_events']['Update']
+export type CoInvestorInsert = Database['public']['Tables']['co_investors']['Insert']
+export type CoInvestorUpdate = Database['public']['Tables']['co_investors']['Update']
+export type UpdateInsert = Database['public']['Tables']['updates']['Insert']
+export type UpdateUpdate = Database['public']['Tables']['updates']['Update']
