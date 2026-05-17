@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-canvas:        #FAF7F0;
+  --bg-surface:       #FFFFFF;
+  --bg-surface-warm:  #F4F0E5;
+  --ink-primary:      #1A1F2C;
+  --ink-secondary:    #6B6F76;
+  --ink-tertiary:     #A8A39A;
+  --accent-positive:  #0F6E56;
+  --accent-negative:  #993C1D;
+  --border-hairline:  #E5E0D5;
+  --pill-mint-bg:     #DFF1E5;
+  --pill-mint-ink:    #1D5B3F;
+  --pill-peach-bg:    #F8E6D5;
+  --pill-peach-ink:   #8B4A1F;
+  --pill-slate-bg:    #E1E5EB;
+  --pill-slate-ink:   #3A4554;
+}
+
+body {
+  background: var(--bg-canvas);
+  color: var(--ink-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Page mount fade-up animation — 8px per PRD §3 */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 200ms ease-out both;
+}
