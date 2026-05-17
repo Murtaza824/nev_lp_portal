@@ -107,3 +107,63 @@ begin
     values (v_id, '2025-04-07', 'markup',  50000000, 125000, 1.25, 'Marked to current valuation');
 
 end $$;
+
+-- ──────────────────────────────────────────────────────────
+-- CO-INVESTORS
+-- ──────────────────────────────────────────────────────────
+
+do $$
+declare
+  v_id uuid;
+begin
+
+  select id into v_id from public.portfolio_companies where slug = 'engram';
+  insert into public.co_investors (company_id, name, "order") values
+    (v_id, 'Valor Equity', 1), (v_id, 'BoxGroup', 2), (v_id, 'SV Angel', 3),
+    (v_id, 'Long Journey', 4), (v_id, 'Genesis Fund', 5), (v_id, 'GoAhead Ventures', 6);
+
+  select id into v_id from public.portfolio_companies where slug = 'olive';
+  insert into public.co_investors (company_id, name, "order") values
+    (v_id, 'Maniac Ventures', 1), (v_id, 'Hypersphere Capital', 2), (v_id, 'Charlie Songhurst', 3);
+
+  select id into v_id from public.portfolio_companies where slug = 'apollo-atomics';
+  insert into public.co_investors (company_id, name, "order") values
+    (v_id, 'Genesis Fund', 1), (v_id, 'Y Combinator', 2), (v_id, 'Don''t Quit Ventures', 3);
+
+  select id into v_id from public.portfolio_companies where slug = 'subhub';
+  insert into public.co_investors (company_id, name, "order") values
+    (v_id, 'SF1', 1), (v_id, 'Atlas Construction', 2);
+
+  select id into v_id from public.portfolio_companies where slug = 'goblins';
+  insert into public.co_investors (company_id, name, "order") values
+    (v_id, 'Night Capital', 1), (v_id, 'Reid Hoffman', 2),
+    (v_id, 'Scott Belsky', 3), (v_id, 'GoAhead Ventures', 4);
+
+  select id into v_id from public.portfolio_companies where slug = 'terac';
+  insert into public.co_investors (company_id, name, "order") values
+    (v_id, 'Emergence Capital', 1), (v_id, 'SignalFire', 2),
+    (v_id, 'Audacious', 3), (v_id, 'SV Angel', 4), (v_id, 'DST Global', 5);
+
+  select id into v_id from public.portfolio_companies where slug = 'crabi-robotics';
+  insert into public.co_investors (company_id, name, "order") values
+    (v_id, 'Venrex', 1), (v_id, 'XFund', 2), (v_id, 'Build Collective', 3);
+
+  select id into v_id from public.portfolio_companies where slug = 'chatarv';
+  insert into public.co_investors (company_id, name, "order") values
+    (v_id, '1517 Fund', 1), (v_id, 'Cory Levy', 2), (v_id, 'LeapYear', 3);
+
+  select id into v_id from public.portfolio_companies where slug = 'silares';
+  insert into public.co_investors (company_id, name, "order") values
+    (v_id, 'Susa Ventures', 1), (v_id, 'HOF Capital', 2), (v_id, 'Champion Hill', 3),
+    (v_id, 'Volt Capital', 4), (v_id, 'Paul Merolla', 5);
+
+  select id into v_id from public.portfolio_companies where slug = 'sylvan-labs';
+  insert into public.co_investors (company_id, name, "order") values
+    (v_id, 'Kyber Knight', 1), (v_id, 'Coho Deeptech', 2), (v_id, 'Krew Capital', 3);
+
+  select id into v_id from public.portfolio_companies where slug = 'applied37';
+  insert into public.co_investors (company_id, name, "order") values
+    (v_id, 'Greylock', 1), (v_id, 'BoxGroup', 2), (v_id, 'Amplify', 3),
+    (v_id, 'SV Angel', 4), (v_id, 'Jack Altman', 5), (v_id, 'Aaron Levie', 6);
+
+end $$;

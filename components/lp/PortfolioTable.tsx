@@ -11,11 +11,14 @@ interface PortfolioTableProps {
 export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) {
   // Footer totals
   const totalCheckSize = companies.reduce((sum, c) => sum + (c.check_size ?? 0), 0)
-  const totalCurrentValue = companies.reduce(
+  // Company valuations for display (not NEV's position)
+  const totalCompanyVal = companies.reduce((sum, c) => sum + (c.current_valuation ?? 0), 0)
+  // NEV position values for MOIC calculation
+  const totalNEVCurrentValue = companies.reduce(
     (sum, c) => sum + (c.check_size ?? 0) * (c.current_multiple ?? 1),
     0
   )
-  const weightedMoic = totalCheckSize > 0 ? totalCurrentValue / totalCheckSize : 0
+  const weightedMoic = totalCheckSize > 0 ? totalNEVCurrentValue / totalCheckSize : 0
 
   return (
     <div className="overflow-x-auto">
@@ -30,7 +33,7 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
                 ['Check', 'text-right pr-4'],
                 ['Entry val', 'text-right pr-4'],
                 ['Own %', 'text-right pr-4'],
-                ['Current val', 'text-right pr-4'],
+                ['Company val', 'text-right pr-4'],
                 ['Mult', 'text-right pr-4'],
                 ['Pro rata', 'text-right pr-4'],
                 ['Co-investors', 'text-left'],
@@ -108,9 +111,9 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
                     ? `${company.ownership_pct.toFixed(2)}%`
                     : '—'}
                 </td>
-                {/* Current val */}
+                {/* Company val */}
                 <td className="py-4 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
-                  {formatUSD(currentVal)}
+                  {company.current_valuation ? formatUSD(company.current_valuation) : '—'}
                 </td>
                 {/* Mult */}
                 <td
@@ -155,7 +158,7 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
             </td>
             <td colSpan={2} />
             <td className="py-4 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
-              {formatUSD(totalCurrentValue)}
+              {formatUSD(totalCompanyVal)}
             </td>
             <td className="py-4 pr-4 font-mono text-mono-md text-accent-positive text-right whitespace-nowrap">
               {formatMult(weightedMoic)}
