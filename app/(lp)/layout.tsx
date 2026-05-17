@@ -6,7 +6,7 @@ export default function LPLayout({ children }: { children: React.ReactNode }) {
     <>
       <NavDesktop />
       <NavMobile />
-      <main className="animate-fade-up">{children}</main>
+      <main>{children}</main>
     </>
   )
 }
