@@ -44,7 +44,7 @@ export function CostValueBars({ companies }: CostValueBarsProps) {
               <div className="flex flex-1 h-5 items-stretch rounded-sm overflow-hidden">
                 {/* Cost segment */}
                 <div
-                  className="bg-ink-secondary/40 h-full"
+                  className="bg-ink-tertiary h-full"
                   style={{ width: `${costPct}%` }}
                   aria-hidden="true"
                 />
