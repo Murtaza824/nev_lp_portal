@@ -31,7 +31,12 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   // Redirect unauthenticated users to login
-  if (!user && !request.nextUrl.pathname.startsWith('/login')) {
+  // Exclude /auth/callback so the PKCE code-exchange handler can run
+  if (
+    !user &&
+    !request.nextUrl.pathname.startsWith('/login') &&
+    !request.nextUrl.pathname.startsWith('/auth/callback')
+  ) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
