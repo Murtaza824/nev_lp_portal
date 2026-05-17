@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { href: '/updates', label: 'Updates' },
 ]
 
-export function NavDesktop() {
+export function NavDesktop({ initials }: { initials: string }) {
   const pathname = usePathname()
 
   return (
@@ -43,11 +43,14 @@ export function NavDesktop() {
           })}
         </nav>
 
-        {/* Avatar, far right */}
-        <div
-          className="h-8 w-8 rounded-full bg-surface-warm border border-border-hairline shrink-0"
-          aria-hidden="true"
-        />
+        {/* Avatar — links to account */}
+        <Link
+          href="/account"
+          className="h-8 w-8 rounded-full bg-surface-warm border border-border-hairline shrink-0 flex items-center justify-center font-inter text-[11px] font-medium text-ink-secondary hover:text-ink-primary hover:border-white/30 transition-colors"
+          aria-label="Your account"
+        >
+          {initials}
+        </Link>
       </div>
     </header>
   )

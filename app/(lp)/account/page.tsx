@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { formatUSD } from '@/lib/format'
 import { ChangePasswordForm } from '@/components/lp/ChangePasswordForm'
+import { InviteTeamMemberForm } from '@/components/lp/InviteTeamMemberForm'
+import { signOut } from './actions'
 import type { Profile, LpEntity } from '@/lib/types'
 
 export const metadata: Metadata = {
@@ -37,6 +39,19 @@ export default async function AccountPage() {
   const displayName =
     entity?.name ?? profile?.full_name ?? 'Your account'
   const email = profile?.email ?? user.email ?? ''
+
+  // Fetch team members if LP belongs to an entity
+  let teamMembers: Pick<Profile, 'id' | 'full_name' | 'email'>[] = []
+  if (profile?.entity_id) {
+    const adminSupabase = createAdminClient()
+    const { data } = await adminSupabase
+      .from('profiles')
+      .select('id, full_name, email')
+      .eq('entity_id', profile.entity_id)
+      .neq('id', user.id)
+      .order('created_at', { ascending: true })
+    teamMembers = (data ?? []) as Pick<Profile, 'id' | 'full_name' | 'email'>[]
+  }
 
   return (
     <div className="mx-auto max-w-[640px] px-4 py-10 md:px-8 animate-fade-up">
@@ -87,13 +102,71 @@ export default async function AccountPage() {
         </div>
       </div>
 
+      {/* Team access card */}
+      <div className="rounded-card border border-border-hairline bg-surface p-6 mb-6">
+        <h2 className="font-fraunces text-heading-mobile md:text-heading text-ink-primary mb-1">
+          Team access
+        </h2>
+        <p className="font-inter text-caption text-ink-secondary mb-5">
+          Invite colleagues to view this portal under your account.
+        </p>
+
+        {profile?.entity_id ? (
+          <>
+            {teamMembers.length > 0 && (
+              <ul className="mb-5 flex flex-col gap-3">
+                {teamMembers.map((member) => (
+                  <li key={member.id} className="flex items-center gap-3">
+                    <div className="h-7 w-7 rounded-full bg-surface-warm border border-border-hairline flex items-center justify-center font-inter text-[10px] font-medium text-ink-secondary shrink-0">
+                      {(member.full_name?.[0] ?? member.email?.[0] ?? '?').toUpperCase()}
+                    </div>
+                    <div>
+                      {member.full_name && (
+                        <p className="font-inter text-body text-ink-primary leading-tight">
+                          {member.full_name}
+                        </p>
+                      )}
+                      <p className="font-inter text-caption text-ink-secondary">
+                        {member.email}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <InviteTeamMemberForm />
+          </>
+        ) : (
+          <p className="font-inter text-caption text-ink-secondary">
+            Contact{' '}
+            <a
+              href="mailto:ir@neweraventures.com"
+              className="text-ink-primary underline underline-offset-2"
+            >
+              ir@neweraventures.com
+            </a>{' '}
+            to enable team access for your account.
+          </p>
+        )}
+      </div>
+
       {/* Security card */}
-      <div className="rounded-card border border-border-hairline bg-surface p-6">
+      <div className="rounded-card border border-border-hairline bg-surface p-6 mb-6">
         <h2 className="font-fraunces text-heading-mobile md:text-heading text-ink-primary mb-5">
           Security
         </h2>
         <ChangePasswordForm />
       </div>
+
+      {/* Sign out */}
+      <form action={signOut}>
+        <button
+          type="submit"
+          className="w-full rounded-input border border-border-hairline bg-surface px-4 py-3 font-inter text-body text-ink-secondary hover:text-ink-primary hover:border-white/20 transition-colors duration-200"
+        >
+          Sign out
+        </button>
+      </form>
     </div>
   )
 }

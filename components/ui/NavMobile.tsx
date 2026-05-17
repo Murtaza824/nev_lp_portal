@@ -2,18 +2,27 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Logo } from '@/components/ui/Logo'
+import { createClient } from '@/lib/supabase/client'
 
 const NAV_LINKS = [
   { href: '/dashboard', label: 'Dashboard' },
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/updates', label: 'Updates' },
+  { href: '/account', label: 'Account' },
 ]
 
-export function NavMobile() {
+export function NavMobile({ initials }: { initials: string }) {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
+
+  async function handleSignOut() {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/login')
+  }
 
   return (
     <header className="sticky top-0 z-50 h-14 bg-canvas border-b border-border-hairline md:hidden">
@@ -83,6 +92,15 @@ export function NavMobile() {
                 )
               })}
             </ul>
+            <div className="border-t border-border-hairline py-2">
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="flex h-12 w-full items-center px-4 font-inter text-body text-ink-secondary hover:text-ink-primary hover:bg-surface-warm transition-colors duration-200 border-l-2 border-transparent"
+              >
+                Sign out
+              </button>
+            </div>
           </nav>
         </>
       )}

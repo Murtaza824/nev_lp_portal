@@ -1,11 +1,37 @@
+import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
 import { NavDesktop } from '@/components/ui/NavDesktop'
 import { NavMobile } from '@/components/ui/NavMobile'
 
-export default function LPLayout({ children }: { children: React.ReactNode }) {
+function getInitials(name: string | null | undefined, email: string | null | undefined): string {
+  if (name) {
+    const parts = name.trim().split(/\s+/).filter(Boolean)
+    if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+    return parts[0][0].toUpperCase()
+  }
+  return (email?.[0] ?? '?').toUpperCase()
+}
+
+export default async function LPLayout({ children }: { children: React.ReactNode }) {
+  const supabase = createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const { data: profileData } = await supabase
+    .from('profiles')
+    .select('full_name, email')
+    .eq('id', user.id)
+    .single()
+  const profile = profileData as { full_name: string | null; email: string | null } | null
+
+  const initials = getInitials(profile?.full_name, profile?.email ?? user.email)
+
   return (
     <div className="flex flex-col min-h-screen">
-      <NavDesktop />
-      <NavMobile />
+      <NavDesktop initials={initials} />
+      <NavMobile initials={initials} />
       <main className="flex-1">{children}</main>
       <footer className="bg-surface border-t border-border-hairline mt-20">
         <div className="mx-auto max-w-7xl px-4 py-12 md:px-8">
