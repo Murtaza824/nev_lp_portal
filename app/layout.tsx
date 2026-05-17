@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google'
+import { Fraunces, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 
 const fraunces = Fraunces({
@@ -9,9 +9,9 @@ const fraunces = Fraunces({
   display: 'swap',
 })
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['300', '400', '500'],
   variable: '--font-inter',
   display: 'swap',
 })
@@ -32,7 +32,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#FAF7F0',
+  themeColor: '#0A0A0A',
 }
 
 export default function RootLayout({
@@ -45,7 +45,7 @@ export default function RootLayout({
       lang="en"
       className={[
         fraunces.variable,
-        inter.variable,
+        spaceGrotesk.variable,
         jetbrainsMono.variable,
       ].join(' ')}
     >
