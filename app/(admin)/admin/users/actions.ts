@@ -16,10 +16,12 @@ export async function inviteLP(formData: FormData) {
   const adminSupabase = createAdminClient()
 
   // Invite the user — do NOT pass role in metadata (trigger always assigns 'lp')
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://lp.neweraventures.com'
   const { data: inviteData, error: inviteError } = await adminSupabase.auth.admin.inviteUserByEmail(
     email,
     {
       data: fullName ? { full_name: fullName } : {},
+      redirectTo: `${siteUrl}/auth/callback`,
     }
   )
 
