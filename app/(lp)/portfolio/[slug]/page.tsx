@@ -174,18 +174,26 @@ export default async function PortfolioCompanyPage({ params }: Props) {
 
       <hr className="border-border-hairline mb-8" />
 
-      {/* Thesis */}
+      {/* Investment Memo */}
       <section className="mb-8">
         <h2 className="font-fraunces text-heading-mobile md:text-heading text-ink-primary mb-3">
-          Thesis
+          Investment memo
         </h2>
-        {company.thesis ? (
-          <article className="font-inter text-body-lg-mobile md:text-body-lg text-ink-primary leading-relaxed">
-            {company.thesis}
-          </article>
+        {company.memo_pdf_url ? (
+          <a
+            href={company.memo_pdf_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-input border border-border-hairline bg-surface px-4 py-2.5 font-inter text-body text-ink-primary hover:bg-surface-warm transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M4 1a1 1 0 00-1 1v12a1 1 0 001 1h8a1 1 0 001-1V5.5L9.5 1H4zm5 0v4h4M6 9h4M6 11h4M6 7h2" stroke="currentColor" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
+            </svg>
+            View investment memo
+          </a>
         ) : (
           <p className="font-inter text-body-lg-mobile md:text-body-lg text-ink-secondary">
-            Thesis coming soon.
+            Investment memo available upon request.
           </p>
         )}
       </section>

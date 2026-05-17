@@ -12,7 +12,7 @@ Items logged from Phase 2 reviewer findings. Address before Phase 5 ships.
 - [ ] **Mobile valuation history**: Event type pills (markup/markdown/initial) are omitted from the mobile stacked view on `/portfolio/[slug]`. Desktop shows them. Consider adding a small colored dot or text label on mobile.
 - [ ] **Account page**: Add a line "To update your email, contact ir@neweraventures.com" so LPs know the path if their email changes.
 - [ ] **Mobile portfolio card**: Consider adding a one-line sector or one-liner beneath the company name for companies that have it, so LPs don't need to tap through to identify a company.
-- [ ] **Thesis content**: 6 of 11 portfolio companies have empty thesis fields in the DB (Goblins, Terac, CRABI Robotics, SubHub, Apollo Atomics, Sylvan Labs). These will show "Thesis coming soon." in the portal. Fill via admin dashboard (Phase 4+) before live LP access.
+- [ ] **Investment memos**: Upload PDF memos for all 11 companies via `/admin/portfolio` (Phase 4). Until uploaded, detail pages show "Investment memo available upon request." Field is `memo_pdf_url` on `portfolio_companies`.
 
 ## Phase 4 prep
 - [ ] Admin invite flow (`/admin/users`) must NOT pass `role` in the metadata payload to `inviteUserByEmail()`. Role is always set to 'lp' by the trigger; admin elevation is a separate explicit action.

@@ -120,6 +120,7 @@ export type Database = {
           stage: 'Pre-Seed' | 'First Check' | 'Seed' | 'Series A' | null
           status: 'active' | 'exited' | 'written_off'
           thesis: string | null
+          memo_pdf_url: string | null
           invested_date: string | null
           check_size: number | null
           entry_valuation: number | null
@@ -141,6 +142,7 @@ export type Database = {
           stage?: 'Pre-Seed' | 'First Check' | 'Seed' | 'Series A' | null
           status?: 'active' | 'exited' | 'written_off'
           thesis?: string | null
+          memo_pdf_url?: string | null
           invested_date?: string | null
           check_size?: number | null
           entry_valuation?: number | null
@@ -162,6 +164,7 @@ export type Database = {
           stage?: 'Pre-Seed' | 'First Check' | 'Seed' | 'Series A' | null
           status?: 'active' | 'exited' | 'written_off'
           thesis?: string | null
+          memo_pdf_url?: string | null
           invested_date?: string | null
           check_size?: number | null
           entry_valuation?: number | null
