@@ -152,10 +152,7 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
             <td className="py-4 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
               {formatUSD(totalCheckSize)}
             </td>
-            <td colSpan={2} />
-            <td className="py-4 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
-              {formatUSD(totalCompanyVal)}
-            </td>
+            <td colSpan={3} />
             <td className="py-4 pr-4 font-mono text-mono-md text-accent-positive text-right whitespace-nowrap">
               {formatMult(weightedMoic)}
             </td>

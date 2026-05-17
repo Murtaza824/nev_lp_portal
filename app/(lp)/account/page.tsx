@@ -1,8 +1,14 @@
+import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { formatUSD } from '@/lib/format'
 import { ChangePasswordForm } from '@/components/lp/ChangePasswordForm'
 import type { Profile, LpEntity } from '@/lib/types'
+
+export const metadata: Metadata = {
+  title: 'Account',
+  robots: { index: false, follow: false },
+}
 
 type ProfileWithEntity = Profile & {
   lp_entities: LpEntity | null

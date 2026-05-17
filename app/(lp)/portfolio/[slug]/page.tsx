@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -8,6 +9,22 @@ import type { PortfolioCompany, ValuationEvent, CoInvestor } from '@/lib/types'
 
 interface Props {
   params: { slug: string }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const supabase = createClient()
+  const { data } = await supabase
+    .from('portfolio_companies')
+    .select('name')
+    .eq('slug', params.slug)
+    .single()
+
+  const name = (data as { name?: string } | null)?.name ?? 'Company'
+
+  return {
+    title: name,
+    robots: { index: false, follow: false },
+  }
 }
 
 type EventType = ValuationEvent['event_type']

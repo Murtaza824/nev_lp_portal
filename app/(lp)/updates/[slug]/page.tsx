@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -7,6 +8,23 @@ import type { Update } from '@/lib/types'
 
 interface Props {
   params: { slug: string }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const supabase = createClient()
+  const { data } = await supabase
+    .from('updates')
+    .select('title')
+    .eq('slug', params.slug)
+    .eq('status', 'published')
+    .single()
+
+  const title = (data as { title?: string } | null)?.title ?? 'Update'
+
+  return {
+    title,
+    robots: { index: false, follow: false },
+  }
 }
 
 type UpdateWithAuthor = Update & {

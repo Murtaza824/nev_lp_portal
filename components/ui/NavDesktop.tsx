@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Logo } from '@/components/ui/Logo'
 
 const NAV_LINKS = [
@@ -8,6 +11,8 @@ const NAV_LINKS = [
 ]
 
 export function NavDesktop() {
+  const pathname = usePathname()
+
   return (
     <header className="sticky top-0 z-50 hidden h-16 bg-canvas border-b border-border-hairline md:block">
       <div className="flex items-center h-full max-w-7xl mx-auto px-8">
@@ -18,15 +23,24 @@ export function NavDesktop() {
 
         {/* Nav links, centered in remaining space */}
         <nav aria-label="Main navigation" className="flex-1 flex items-center justify-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-body font-inter text-ink-secondary hover:text-ink-primary transition-colors duration-200 ease-out"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const isActive = pathname === link.href || pathname.startsWith(link.href + '/')
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={[
+                  'text-body font-inter transition-colors duration-200 ease-out',
+                  isActive
+                    ? 'text-ink-primary'
+                    : 'text-ink-secondary hover:text-ink-primary',
+                ].join(' ')}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {link.label}
+              </Link>
+            )
+          })}
         </nav>
 
         {/* Avatar, far right */}

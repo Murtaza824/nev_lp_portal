@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Logo } from '@/components/ui/Logo'
 
 const NAV_LINKS = [
@@ -12,6 +13,7 @@ const NAV_LINKS = [
 
 export function NavMobile() {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
 
   return (
     <header className="sticky top-0 z-50 h-14 bg-canvas border-b border-border-hairline md:hidden">
@@ -60,17 +62,26 @@ export function NavMobile() {
             className="absolute left-0 right-0 top-full z-50 bg-canvas border-b border-border-hairline animate-slide-down"
           >
             <ul className="flex flex-col py-2">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="flex h-12 items-center px-4 text-body font-inter text-ink-primary hover:bg-surface-warm transition-colors duration-200 ease-out"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {NAV_LINKS.map((link) => {
+                const isActive = pathname === link.href || pathname.startsWith(link.href + '/')
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={[
+                        'flex h-12 items-center px-4 text-body font-inter transition-colors duration-200 ease-out border-l-2',
+                        isActive
+                          ? 'text-ink-primary border-accent-positive bg-surface-warm'
+                          : 'text-ink-secondary hover:text-ink-primary hover:bg-surface-warm border-transparent',
+                      ].join(' ')}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
           </nav>
         </>
