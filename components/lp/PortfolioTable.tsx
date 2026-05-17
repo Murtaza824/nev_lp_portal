@@ -20,38 +20,29 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse text-left">
-        <thead className="sticky top-16 z-10 bg-canvas">
+        <thead>
           <tr className="border-b-2 border-border-hairline">
-            <th className="pb-3 pt-2 pr-6 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-left min-w-[140px]">
-              Company
-            </th>
-            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-left">
-              Stage
-            </th>
-            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
-              Date
-            </th>
-            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
-              Check
-            </th>
-            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
-              Entry val
-            </th>
-            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
-              Own %
-            </th>
-            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
-              Current val
-            </th>
-            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
-              Mult
-            </th>
-            <th className="pb-3 pt-2 pr-4 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-right">
-              Pro rata
-            </th>
-            <th className="pb-3 pt-2 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap text-left">
-              Co-investors
-            </th>
+            {(
+              [
+                ['Company', 'text-left min-w-[140px] pr-6'],
+                ['Stage', 'text-left pr-4'],
+                ['Date', 'text-right pr-4'],
+                ['Check', 'text-right pr-4'],
+                ['Entry val', 'text-right pr-4'],
+                ['Own %', 'text-right pr-4'],
+                ['Current val', 'text-right pr-4'],
+                ['Mult', 'text-right pr-4'],
+                ['Pro rata', 'text-right pr-4'],
+                ['Co-investors', 'text-left'],
+              ] as [string, string][]
+            ).map(([label, extra]) => (
+              <th
+                key={label}
+                className={`pb-3 pt-2 font-inter text-caption uppercase tracking-[0.08em] text-ink-tertiary whitespace-nowrap ${extra}`}
+              >
+                {label}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
