@@ -1,4 +1,5 @@
 import { createServerClient } from '@supabase/ssr'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import type { CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import type { Database } from '@/lib/database.types'
@@ -28,13 +29,21 @@ export function createClient() {
   )
 }
 
+/**
+ * Admin client using the service role key.
+ * Uses @supabase/supabase-js directly (not @supabase/ssr) to avoid
+ * type inference issues with the SSR cookie wrapper and to bypass RLS.
+ * ONLY use server-side — never expose the service role key to the browser.
+ */
 export function createAdminClient() {
-  return createServerClient<Database>(
+  return createSupabaseClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
     {
-      cookies: { getAll: () => [], setAll: () => {} },
-      auth: { persistSession: false },
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
     }
   )
 }

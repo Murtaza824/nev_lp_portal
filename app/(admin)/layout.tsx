@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { AdminNavDesktop } from '@/components/admin/AdminNavDesktop'
+import { AdminNavMobile } from '@/components/admin/AdminNavMobile'
 import type { Profile } from '@/lib/types'
 
 export default async function AdminLayout({
@@ -26,5 +28,11 @@ export default async function AdminLayout({
     redirect('/dashboard')
   }
 
-  return <>{children}</>
+  return (
+    <div className="flex flex-col min-h-screen">
+      <AdminNavDesktop />
+      <AdminNavMobile />
+      <main className="flex-1">{children}</main>
+    </div>
+  )
 }

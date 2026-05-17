@@ -31,6 +31,7 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -66,6 +67,7 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       fund: {
         Row: {
@@ -107,6 +109,7 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       portfolio_companies: {
         Row: {
@@ -175,6 +178,7 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       valuation_events: {
         Row: {
@@ -213,6 +217,7 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       co_investors: {
         Row: {
@@ -239,6 +244,7 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       updates: {
         Row: {
@@ -286,9 +292,10 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
     }
-    Views: Record<string, never>
+    Views: {}
     Functions: {
       is_admin: {
         Args: Record<string, never>
