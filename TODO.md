@@ -3,7 +3,7 @@
 Items logged from Phase 2 reviewer findings. Address before Phase 5 ships.
 
 ## Security
-- [ ] **Supabase dashboard**: Go to Authentication → Settings → disable "Enable email signups" for the remote project (https://supabase.com/dashboard/project/eysgcnewnmlzpcdtsdsa/auth/configuration). The local config.toml has been updated but the remote setting must be toggled manually.
+- [x] **Supabase dashboard**: Disabled "Enable email signups" on 2026-05-17.
 - [ ] **Supabase dashboard**: Consider enabling `secure_password_change` (Authentication → Settings) — requires re-auth before password changes.
 - [ ] **Security headers**: Add Content-Security-Policy header once admin page domains and external scripts are finalized.
 
