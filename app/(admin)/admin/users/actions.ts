@@ -16,7 +16,9 @@ export async function inviteLP(formData: FormData) {
   const adminSupabase = createAdminClient()
 
   // Invite the user — do NOT pass role in metadata (trigger always assigns 'lp')
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://lp.neweraventures.com'
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://lp.neweraventures.com')
   const { data: inviteData, error: inviteError } = await adminSupabase.auth.admin.inviteUserByEmail(
     email,
     {
