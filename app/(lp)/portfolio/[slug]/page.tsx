@@ -237,17 +237,17 @@ export default async function PortfolioCompanyPage({ params }: Props) {
                         </span>
                       )}
                     </td>
-                    <td className="py-2 pr-4 font-mono text-mono-sm text-ink-primary text-right whitespace-nowrap">
+                    <td className="py-2 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                       {ev.new_company_valuation
                         ? formatUSD(ev.new_company_valuation)
                         : '—'}
                     </td>
-                    <td className="py-2 pr-4 font-mono text-mono-sm text-ink-primary text-right whitespace-nowrap">
+                    <td className="py-2 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                       {ev.new_position_value
                         ? formatUSD(ev.new_position_value)
                         : '—'}
                     </td>
-                    <td className="py-2 pr-4 font-mono text-mono-sm text-ink-primary text-right whitespace-nowrap">
+                    <td className="py-2 pr-4 font-mono text-mono-md text-ink-primary text-right whitespace-nowrap">
                       {ev.multiple != null ? formatMult(ev.multiple) : '—'}
                     </td>
                     <td className="py-2 font-inter text-caption text-ink-secondary max-w-[180px]">
