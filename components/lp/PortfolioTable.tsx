@@ -134,12 +134,10 @@ export function PortfolioTable({ companies, coInvestors }: PortfolioTableProps) 
                   )}
                 </td>
                 {/* Co-investors */}
-                <td className="py-4 font-inter text-caption text-ink-secondary max-w-[160px]">
-                  <p className="line-clamp-2">
-                    {coInvs.length > 0
-                      ? coInvs.map((ci) => ci.name).join(', ')
-                      : '—'}
-                  </p>
+                <td className="py-4 font-inter text-caption text-ink-secondary">
+                  {coInvs.length > 0
+                    ? coInvs.map((ci) => ci.name).join(', ')
+                    : '—'}
                 </td>
               </tr>
             )
