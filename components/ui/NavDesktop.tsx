@@ -9,7 +9,7 @@ const NAV_LINKS = [
 
 export function NavDesktop() {
   return (
-    <header className="sticky top-0 z-50 hidden h-16 bg-canvas border-b border-border-hairline md:flex">
+    <header className="sticky top-0 z-50 hidden h-16 bg-canvas border-b border-border-hairline md:block">
       <div className="flex items-center h-full max-w-7xl mx-auto px-8">
         {/* Logo, far left */}
         <Link href="/dashboard" aria-label="New Era Ventures — home" className="shrink-0">
