@@ -41,7 +41,7 @@ export function CostValueBars({ companies }: CostValueBarsProps) {
   return (
     <section ref={sectionRef} className="mt-16 md:mt-[64px]">
       <h2 className="font-fraunces text-[20px] leading-tight text-ink-primary mb-1 md:text-[22px]">
-        Cost vs. current value
+        Cost vs. Current value
       </h2>
       <p className="font-inter text-caption text-ink-secondary mb-6">
         Each row: capital invested, then current carrying value. Markups extend past the cost line.
