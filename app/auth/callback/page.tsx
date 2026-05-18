@@ -36,15 +36,18 @@ function CallbackHandler() {
       }
 
       // Hash fragment flow — createBrowserClient auto-processes #access_token=...
-      // Listen for the SIGNED_IN event it fires after processing the hash
+      // Listen for the SIGNED_IN / PASSWORD_RECOVERY event
       const { data: { subscription } } = supabase.auth.onAuthStateChange(
         (event, session) => {
-          if (event === 'SIGNED_IN' && session) {
+          if ((event === 'SIGNED_IN' || event === 'PASSWORD_RECOVERY') && session) {
             subscription.unsubscribe()
-            const isInvite =
-              window.location.hash.includes('type=invite') ||
-              type === 'invite'
-            router.replace(isInvite ? '/account' : next)
+            const hash = window.location.hash
+            const needsPasswordSet =
+              hash.includes('type=invite') ||
+              hash.includes('type=recovery') ||
+              type === 'invite' ||
+              type === 'recovery'
+            router.replace(needsPasswordSet ? '/account' : next)
           }
         }
       )
@@ -53,9 +56,13 @@ function CallbackHandler() {
       const { data: { session } } = await supabase.auth.getSession()
       if (session) {
         subscription.unsubscribe()
-        const isInvite =
-          window.location.hash.includes('type=invite') || type === 'invite'
-        router.replace(isInvite ? '/account' : next)
+        const hash = window.location.hash
+        const needsPasswordSet =
+          hash.includes('type=invite') ||
+          hash.includes('type=recovery') ||
+          type === 'invite' ||
+          type === 'recovery'
+        router.replace(needsPasswordSet ? '/account' : next)
         return
       }
 
