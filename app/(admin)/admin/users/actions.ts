@@ -90,6 +90,35 @@ export async function createOrAssignEntity(formData: FormData) {
   return { success: true }
 }
 
+export async function deleteLP(formData: FormData) {
+  const userId = formData.get('user_id') as string | null
+  if (!userId) return { error: 'User ID is required.' }
+
+  const adminSupabase = createAdminClient()
+  const { error } = await adminSupabase.auth.admin.deleteUser(userId)
+  if (error) return { error: error.message }
+
+  revalidatePath('/admin/users')
+  return { success: true }
+}
+
+export async function resendInvite(formData: FormData) {
+  const email = (formData.get('email') as string | null)?.trim()
+  if (!email) return { error: 'Email is required.' }
+
+  const adminSupabase = createAdminClient()
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://lp.neweraventures.com')
+
+  const { error } = await adminSupabase.auth.admin.inviteUserByEmail(email, {
+    redirectTo: `${siteUrl}/auth/callback`,
+  })
+  if (error) return { error: error.message }
+
+  return { success: true }
+}
+
 export async function updateCommitment(formData: FormData) {
   const userId = formData.get('user_id') as string | null
   const commitmentRaw = formData.get('commitment_amount') as string | null

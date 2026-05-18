@@ -3,6 +3,7 @@ import { formatUSD, formatDate } from '@/lib/format'
 import { InviteLPForm } from '@/components/admin/InviteLPForm'
 import { CommitmentEditCell } from '@/components/admin/CommitmentEditCell'
 import { EntityAssignCell } from '@/components/admin/EntityAssignCell'
+import { UserActionsCell } from '@/components/admin/UserActionsCell'
 import type { Profile, LpEntity } from '@/lib/types'
 import type { User } from '@supabase/supabase-js'
 
@@ -76,8 +77,11 @@ export default async function AdminUsersPage() {
               <th className="py-3 pr-6 text-left font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary">
                 Joined
               </th>
-              <th className="py-3 text-left font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary">
+              <th className="py-3 pr-6 text-left font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary">
                 Status
+              </th>
+              <th className="py-3 text-left font-inter text-caption uppercase tracking-[0.08em] text-ink-secondary">
+                Actions
               </th>
             </tr>
           </thead>
@@ -123,7 +127,7 @@ export default async function AdminUsersPage() {
                   <td className="py-4 pr-6 font-mono text-mono-sm text-ink-secondary">
                     {joinedAt ? formatDate(joinedAt) : '—'}
                   </td>
-                  <td className="py-4">
+                  <td className="py-4 pr-6">
                     {isActive ? (
                       <span className="inline-flex items-center rounded-pill bg-pill-mint-bg px-2.5 py-1 font-inter text-caption text-pill-mint-ink">
                         Active
@@ -134,12 +138,23 @@ export default async function AdminUsersPage() {
                       </span>
                     )}
                   </td>
+                  <td className="py-4">
+                    {profile.role === 'lp' ? (
+                      <UserActionsCell
+                        userId={profile.id}
+                        email={profile.email ?? ''}
+                        isPending={!isActive}
+                      />
+                    ) : (
+                      <span className="font-inter text-caption text-ink-tertiary">—</span>
+                    )}
+                  </td>
                 </tr>
               )
             })}
             {rows.length === 0 && (
               <tr>
-                <td colSpan={6} className="py-12 text-center font-inter text-body text-ink-secondary">
+                <td colSpan={7} className="py-12 text-center font-inter text-body text-ink-secondary">
                   No users yet. Invite an LP above.
                 </td>
               </tr>
@@ -182,6 +197,17 @@ export default async function AdminUsersPage() {
                   <p className="font-inter text-caption text-ink-secondary mt-1 mb-2">
                     {profile.lp_entities.name}
                   </p>
+                )}
+                <div className="flex items-center justify-between">
+                </div>
+                {profile.role === 'lp' && (
+                  <div className="mt-2">
+                    <UserActionsCell
+                      userId={profile.id}
+                      email={profile.email ?? ''}
+                      isPending={!isActive}
+                    />
+                  </div>
                 )}
                 <div className="flex items-center justify-between">
                   {profile.role === 'lp' ? (
