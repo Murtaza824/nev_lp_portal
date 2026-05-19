@@ -30,7 +30,8 @@ function CallbackHandler() {
       if (tokenHash && type) {
         const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash })
         if (!error) {
-          router.replace(type === 'invite' ? '/account' : next)
+          const needsPasswordSet = type === 'invite' || type === 'recovery'
+          router.replace(needsPasswordSet ? '/auth/set-password' : next)
           return
         }
       }
@@ -47,7 +48,7 @@ function CallbackHandler() {
               hash.includes('type=recovery') ||
               type === 'invite' ||
               type === 'recovery'
-            router.replace(needsPasswordSet ? '/account' : next)
+            router.replace(needsPasswordSet ? '/auth/set-password' : next)
           }
         }
       )
