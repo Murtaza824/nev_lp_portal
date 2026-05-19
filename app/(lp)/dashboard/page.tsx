@@ -59,17 +59,20 @@ export default async function DashboardPage() {
     entity?.commitment_amount ?? profile?.commitment_amount ?? 0
 
   // Fund figures (with null-guards)
+  const fundSize = fund?.fund_size ?? fund?.total_committed ?? 0
   const totalCommitted = fund?.total_committed ?? 0
   const totalCalled = fund?.total_called ?? 0
   const totalDeployed = fund?.total_deployed ?? 0
   const totalCurrentValue = fund?.total_current_value ?? 0
 
   // LP pro-rata calculations
+  // Call ratio uses total_committed (actual wired capital) as the base
   const callRatio = totalCommitted > 0 ? totalCalled / totalCommitted : 0
   const lpCalled = effectiveCommitment * callRatio
   const callPct = Math.round(callRatio * 100)
 
-  const navRatio = totalCommitted > 0 ? totalCurrentValue / totalCommitted : 0
+  // Current value uses fund_size ($5M target) as denominator for LP ownership %
+  const navRatio = fundSize > 0 ? totalCurrentValue / fundSize : 0
   const lpCurrentValue = effectiveCommitment * navRatio
 
   const grossMoic = totalDeployed > 0 ? totalCurrentValue / totalDeployed : 0

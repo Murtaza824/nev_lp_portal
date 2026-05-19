@@ -74,6 +74,7 @@ export type Database = {
           id: string
           name: string
           vintage: number | null
+          fund_size: number | null
           total_committed: number | null
           total_called: number | null
           total_deployed: number | null
@@ -87,6 +88,7 @@ export type Database = {
           id?: string
           name?: string
           vintage?: number | null
+          fund_size?: number | null
           total_committed?: number | null
           total_called?: number | null
           total_deployed?: number | null
@@ -100,6 +102,7 @@ export type Database = {
           id?: string
           name?: string
           vintage?: number | null
+          fund_size?: number | null
           total_committed?: number | null
           total_called?: number | null
           total_deployed?: number | null
