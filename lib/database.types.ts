@@ -40,6 +40,7 @@ export type Database = {
           email: string | null
           role: 'lp' | 'admin'
           entity_id: string | null
+          entity_role: 'member' | 'admin' | null
           commitment_amount: number | null
           committed_at: string | null
           created_at: string
@@ -51,6 +52,7 @@ export type Database = {
           email?: string | null
           role?: 'lp' | 'admin'
           entity_id?: string | null
+          entity_role?: 'member' | 'admin' | null
           commitment_amount?: number | null
           committed_at?: string | null
           created_at?: string
@@ -62,6 +64,7 @@ export type Database = {
           email?: string | null
           role?: 'lp' | 'admin'
           entity_id?: string | null
+          entity_role?: 'member' | 'admin' | null
           commitment_amount?: number | null
           committed_at?: string | null
           created_at?: string

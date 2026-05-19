@@ -89,3 +89,63 @@ export async function inviteTeamMember(formData: FormData) {
   revalidatePath('/account')
   return { success: true }
 }
+
+export async function removeTeamMember(memberId: string) {
+  const supabase = createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'Not authenticated.' }
+
+  const { data: profileData } = await supabase
+    .from('profiles')
+    .select('entity_id, role')
+    .eq('id', user.id)
+    .single()
+  const profile = profileData as Pick<Profile, 'entity_id' | 'role'> | null
+
+  if (!profile?.entity_id) return { error: 'You do not manage a team.' }
+
+  const adminSupabase = createAdminClient()
+
+  // Confirm the member actually belongs to this entity
+  const { data: memberData } = await adminSupabase
+    .from('profiles')
+    .select('id, entity_id')
+    .eq('id', memberId)
+    .eq('entity_id', profile.entity_id)
+    .single()
+
+  if (!memberData) return { error: 'Member not found in your team.' }
+
+  await adminSupabase.auth.admin.deleteUser(memberId)
+
+  revalidatePath('/account')
+  return { success: true }
+}
+
+export async function updateTeamMemberRole(memberId: string, entityRole: 'member' | 'admin') {
+  const supabase = createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'Not authenticated.' }
+
+  const { data: profileData } = await supabase
+    .from('profiles')
+    .select('entity_id, role')
+    .eq('id', user.id)
+    .single()
+  const profile = profileData as Pick<Profile, 'entity_id' | 'role'> | null
+
+  if (!profile?.entity_id) return { error: 'You do not manage a team.' }
+
+  const adminSupabase = createAdminClient()
+
+  const { error } = await adminSupabase
+    .from('profiles')
+    .update({ entity_role: entityRole })
+    .eq('id', memberId)
+    .eq('entity_id', profile.entity_id)
+
+  if (error) return { error: error.message }
+
+  revalidatePath('/account')
+  return { success: true }
+}
