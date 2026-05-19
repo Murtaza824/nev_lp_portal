@@ -17,7 +17,7 @@ function CallbackHandler() {
     const type = searchParams.get('type') as EmailOtpType | null
 
     async function handle() {
-      // PKCE code exchange (magic links)
+      // ── 1. PKCE code exchange (magic links) ──────────────────────────────
       if (code) {
         const { error } = await supabase.auth.exchangeCodeForSession(code)
         if (!error) {
@@ -26,7 +26,7 @@ function CallbackHandler() {
         }
       }
 
-      // Token hash flow (some invite configs)
+      // ── 2. Token hash flow ────────────────────────────────────────────────
       if (tokenHash && type) {
         const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash })
         if (!error) {
@@ -36,42 +36,37 @@ function CallbackHandler() {
         }
       }
 
-      // Hash fragment flow — createBrowserClient auto-processes #access_token=...
-      // Listen for the SIGNED_IN / PASSWORD_RECOVERY event
-      const { data: { subscription } } = supabase.auth.onAuthStateChange(
-        (event, session) => {
-          if ((event === 'SIGNED_IN' || event === 'PASSWORD_RECOVERY') && session) {
-            subscription.unsubscribe()
-            const hash = window.location.hash
-            const needsPasswordSet =
-              hash.includes('type=invite') ||
-              hash.includes('type=recovery') ||
-              type === 'invite' ||
-              type === 'recovery'
+      // ── 3. Hash fragment flow (#access_token=…) ───────────────────────────
+      // @supabase/ssr's createBrowserClient does NOT auto-process hash
+      // fragments, so we parse and call setSession manually.
+      const rawHash = window.location.hash.slice(1)
+      if (rawHash) {
+        const params = new URLSearchParams(rawHash)
+        const accessToken = params.get('access_token')
+        const refreshToken = params.get('refresh_token')
+        const hashType = params.get('type')
+
+        if (accessToken && refreshToken) {
+          const { error } = await supabase.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          })
+          if (!error) {
+            const needsPasswordSet = hashType === 'invite' || hashType === 'recovery'
             router.replace(needsPasswordSet ? '/auth/set-password' : next)
+            return
           }
         }
-      )
+      }
 
-      // If already signed in (race condition), redirect immediately
+      // ── 4. Already signed in (edge case) ─────────────────────────────────
       const { data: { session } } = await supabase.auth.getSession()
       if (session) {
-        subscription.unsubscribe()
-        const hash = window.location.hash
-        const needsPasswordSet =
-          hash.includes('type=invite') ||
-          hash.includes('type=recovery') ||
-          type === 'invite' ||
-          type === 'recovery'
-        router.replace(needsPasswordSet ? '/account' : next)
+        router.replace(next)
         return
       }
 
-      // Fallback: nothing resolved after 10s, send to login
-      setTimeout(() => {
-        subscription.unsubscribe()
-        router.replace('/login?error=auth')
-      }, 10000)
+      router.replace('/login?error=auth')
     }
 
     handle()
