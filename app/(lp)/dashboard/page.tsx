@@ -71,9 +71,10 @@ export default async function DashboardPage() {
   const lpCalled = effectiveCommitment * callRatio
   const callPct = Math.round(callRatio * 100)
 
-  // Current value uses total_committed (actual raised capital) as denominator
-  const navRatio = totalCommitted > 0 ? totalCurrentValue / totalCommitted : 0
-  const lpCurrentValue = effectiveCommitment * navRatio
+  // LP current value = LP ownership % × (investment current value + uninvested cash)
+  const lpOwnershipPct = totalCommitted > 0 ? effectiveCommitment / totalCommitted : 0
+  const uninvestedCash = Math.max(0, totalCalled - totalDeployed)
+  const lpCurrentValue = lpOwnershipPct * (totalCurrentValue + uninvestedCash)
 
   const grossMoic = totalDeployed > 0 ? totalCurrentValue / totalDeployed : 0
 
