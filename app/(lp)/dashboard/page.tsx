@@ -71,8 +71,8 @@ export default async function DashboardPage() {
   const lpCalled = effectiveCommitment * callRatio
   const callPct = Math.round(callRatio * 100)
 
-  // Current value uses fund_size ($5M target) as denominator for LP ownership %
-  const navRatio = fundSize > 0 ? totalCurrentValue / fundSize : 0
+  // Current value uses total_committed (actual raised capital) as denominator
+  const navRatio = totalCommitted > 0 ? totalCurrentValue / totalCommitted : 0
   const lpCurrentValue = effectiveCommitment * navRatio
 
   const grossMoic = totalDeployed > 0 ? totalCurrentValue / totalDeployed : 0
