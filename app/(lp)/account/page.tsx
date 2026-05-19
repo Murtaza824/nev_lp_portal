@@ -88,6 +88,13 @@ export default async function AccountPage() {
               Email
             </p>
             <p className="font-inter text-body text-ink-secondary">{email}</p>
+            <p className="font-inter text-caption text-ink-tertiary mt-1">
+              To update your email, contact{' '}
+              <a href="mailto:murtaza@neweraventures.com" className="hover:text-ink-secondary transition-colors">murtaza</a>
+              {' or '}
+              <a href="mailto:carter@neweraventures.com" className="hover:text-ink-secondary transition-colors">carter</a>
+              {' @neweraventures.com'}
+            </p>
           </div>
 
           {/* Commitment */}
