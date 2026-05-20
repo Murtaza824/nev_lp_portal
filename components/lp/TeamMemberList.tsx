@@ -27,13 +27,6 @@ function TeamMemberRow({ member }: { member: TeamMember }) {
   const [isPending, startTransition] = useTransition()
 
   const currentRole = member.entity_role ?? 'member'
-  const nextRole = currentRole === 'admin' ? 'member' : 'admin'
-
-  function handleRoleToggle() {
-    startTransition(async () => {
-      await updateTeamMemberRole(member.id, nextRole)
-    })
-  }
 
   function handleDelete() {
     startTransition(async () => {
@@ -61,20 +54,19 @@ function TeamMemberRow({ member }: { member: TeamMember }) {
         </p>
       </div>
 
-      {/* Role pill (toggle) */}
-      <button
-        type="button"
-        onClick={handleRoleToggle}
+      {/* Role dropdown */}
+      <select
+        value={currentRole}
+        onChange={(e) => {
+          const val = e.target.value as 'member' | 'admin'
+          startTransition(async () => { await updateTeamMemberRole(member.id, val) })
+        }}
         disabled={isPending}
-        title={`Switch to ${nextRole}`}
-        className={`shrink-0 rounded-full px-2.5 py-0.5 font-inter text-[11px] font-medium transition-colors duration-150 disabled:opacity-50 ${
-          currentRole === 'admin'
-            ? 'bg-accent-positive/10 text-accent-positive border border-accent-positive/20'
-            : 'bg-surface-warm text-ink-tertiary border border-border-hairline hover:text-ink-secondary'
-        }`}
+        className="shrink-0 rounded-full border border-border-hairline bg-surface-warm px-2.5 py-0.5 font-inter text-[11px] text-ink-secondary focus:outline-none disabled:opacity-50 cursor-pointer"
       >
-        {currentRole}
-      </button>
+        <option value="member">member</option>
+        <option value="admin">admin</option>
+      </select>
 
       {/* Delete */}
       {!confirmDelete ? (
